@@ -1,18 +1,16 @@
-package ar.edu.utn.frba.ddsi.donaciones.models.entities;
+package ar.edu.utn.frba.ddsi.donaciones.models.entities.bienes;
+
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class CategoriaBien {
     private String descripcion;
     private List<SubcategoriaBien> subcategorias;
-    // falta modelar las categorías que tienen un ESTADO... 
-    // esto va en la categoría, o en el bien?
 
     public CategoriaBien(String descripcion, List<SubcategoriaBien> subcategorias) {
-        // Una categoría no podría empezar con una lista de subcategorías vacía? 
-        // Mi respuesta: ¡¡NO!! A mi entender, como una subcategoría es la unidad atómica de asignación, 
-        // si se crea una categoría sin subcategorías asociadas entonces ningún bien va a poder sumarse a esta categoría,
-        // ya que todo bien debe tener una subcategoría asociada... O al menos así lo entiendo yo!
         if (subcategorias == null || subcategorias.isEmpty()) {
             throw new IllegalArgumentException("¡Una categoría debe tener al menos una subcategoría asociada!");
         }
@@ -31,12 +29,8 @@ public class CategoriaBien {
 
         this.subcategorias.add(nuevaSubcategoria);
     }
-    public void eliminarSubcategoria(SubcategoriaBien subcategoriaEliminada) {
-        // VER eliminarMedio en Donante.java
-        // if (!this.subcategorias.contains(subcategoriaEliminada)) {
-        //     throw new IllegalArgumentException("La subcategoría a eliminar no puede ser NULL!");
-        // }
 
+    public void eliminarSubcategoria(SubcategoriaBien subcategoriaEliminada) {
         this.subcategorias.remove(subcategoriaEliminada);
     }
 

@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.ddsi.donaciones.models.entities;
+package ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.humano;
 
 public enum Genero {
     MASCULINO,

@@ -1,10 +1,14 @@
-package ar.edu.utn.frba.ddsi.donaciones.models.entities;
+package ar.edu.utn.frba.ddsi.donaciones.models.entities.bienes;
 
+import lombok.Getter;
+
+@Getter
 public class SubcategoriaBien {
     private String descripcion;
     private Boolean esPerecedero;
+    private CategoriaBien categoriaBien;
 
-    public SubcategoriaBien(String descripcion, Boolean esPerecedero) {
+    public SubcategoriaBien(String descripcion, Boolean esPerecedero, CategoriaBien categoriaBien) {
         if (descripcion == null) {
             throw new IllegalArgumentException("¡La subcategoría debe contener una descripción!");
         }
@@ -14,5 +18,6 @@ public class SubcategoriaBien {
 
         this.descripcion = descripcion;
         this.esPerecedero = esPerecedero;
+        this.categoriaBien = categoriaBien;
     }
 }

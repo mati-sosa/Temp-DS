@@ -1,4 +1,10 @@
-package ar.edu.utn.frba.ddsi.donaciones.models.entities;
+package ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.humano;
+
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.Direccion;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.MedioDeContacto;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.TipoMedioContacto;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Donante;
+
 import java.util.List;
 
 public class DonanteHumano extends Donante {
@@ -9,22 +15,22 @@ public class DonanteHumano extends Donante {
     private Direccion direccion;
     private MedioDeContacto medioPredeterminado;
 
-    public DonanteHumano(String nombre, 
-            List<MedioDeContacto> mediosDeContacto, 
-            MedioDeContacto medioPredeterminado, 
-            int edad, 
+    public DonanteHumano(String nombre,
+            List<MedioDeContacto> mediosDeContacto,
+            MedioDeContacto medioPredeterminado,
+            int edad,
             String numeroDocumento,
             TipoDocumento tipoDocumento,
             Genero genero,
             Direccion direccion) {
         super(nombre, mediosDeContacto);
-        
-        // VALIDACIÓN DE EMAIL
-        boolean tieneEmail = mediosDeContacto.stream().anyMatch(m -> m instanceof Email);
+
+        boolean tieneEmail = mediosDeContacto.stream()
+                .anyMatch(m -> m.getTipoMedioContacto() == TipoMedioContacto.EMAIL);
         if (!tieneEmail) {
             throw new IllegalArgumentException("¡El donante debe tener al menos un email!");
         }
-        if(edad < 18) {
+        if (edad < 18) {
             throw new IllegalArgumentException("¡El donante debe ser mayor de edad!");
         }
         validarMedioPredeterminado(mediosDeContacto, medioPredeterminado);
@@ -42,8 +48,6 @@ public class DonanteHumano extends Donante {
             throw new IllegalArgumentException("¡El donante debe tener un medio predeterminado!");
         }
         if (!mediosDeContacto.contains(medioPredeterminado)) {
-            // Se podría agregar el medio predeterminado a la lista de medios de contacto del donante...
-            // pero podría darse el caso de que se pasa un medioPredeterminado erróneo y el sistema lo toma como válido
             throw new IllegalArgumentException("¡El medio predeterminado debe pertenecer a la lista!");
         }
     }
@@ -53,18 +57,18 @@ public class DonanteHumano extends Donante {
         if (this.medioPredeterminado == medioDeContactoEliminado) {
             throw new IllegalArgumentException("¡No se puede eliminar el medio de contacto predeterminado!");
         }
-        // No me gusta esta línea...
-        // la alternativa sería agregar un método que haga exactamente esto ¯\_(ツ)_/¯
-        long cantidadEmails = this.mediosDeContacto.stream().filter(medio -> medio instanceof Email).count();
-        if (medioDeContactoEliminado instanceof Email && cantidadEmails == 1) {
+        long cantidadEmails = this.mediosDeContacto.stream()
+                .filter(m -> m.getTipoMedioContacto() == TipoMedioContacto.EMAIL)
+                .count();
+        if (medioDeContactoEliminado.getTipoMedioContacto() == TipoMedioContacto.EMAIL && cantidadEmails == 1) {
             throw new IllegalArgumentException("¡No es posible eliminar el único email del donante!");
         }
-        
+
         super.eliminarMedio(medioDeContactoEliminado);
     }
+
     public void cambiarMedioPredeterminado(MedioDeContacto nuevoMedioPredeterminado) {
         validarMedioPredeterminado(this.mediosDeContacto, nuevoMedioPredeterminado);
-        
         medioPredeterminado = nuevoMedioPredeterminado;
     }
 }

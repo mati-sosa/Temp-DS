@@ -1,11 +1,18 @@
-package ar.edu.utn.frba.ddsi.donaciones.models.entities;
+package ar.edu.utn.frba.ddsi.donaciones.models.entities.necesidades;
 
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.bienes.Bien;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.bienes.CategoriaBien;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.bienes.CantidadDeBien;
+import lombok.Getter;
+
+@Getter
 public abstract class Necesidad {
     private String descripcion;
     private CategoriaBien categoria;
+    private CantidadDeBien cantidadDeBien;
     private double cantidadCubierta = 0;
 
-    public Necesidad(String descripcion, CategoriaBien categoria) {
+    public Necesidad(String descripcion, CategoriaBien categoria, CantidadDeBien cantidadDeBien) {
         if(descripcion == null) {
             throw new IllegalArgumentException("¡La necesidad debe tener una descripción!");
         }
@@ -15,6 +22,7 @@ public abstract class Necesidad {
 
         this.descripcion = descripcion;
         this.categoria = categoria;
+        this.cantidadDeBien = cantidadDeBien;
     }
 
     public void registrarDonacion(Bien bienDonado) {
@@ -24,6 +32,7 @@ public abstract class Necesidad {
 
         sumarBienes(bienDonado.getCantidad());
     }
+
     private void sumarBienes(Double cantidadDonada) {
         this.cantidadCubierta += cantidadDonada;
     }

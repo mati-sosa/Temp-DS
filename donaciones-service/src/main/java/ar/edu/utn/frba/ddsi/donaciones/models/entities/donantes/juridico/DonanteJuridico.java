@@ -1,4 +1,8 @@
-package ar.edu.utn.frba.ddsi.donaciones.models.entities;
+package ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.juridico;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.MedioDeContacto;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.Rubro;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Donante;
+
 import java.util.List;
 import java.util.ArrayList;
 

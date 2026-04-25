@@ -6,20 +6,29 @@ import lombok.Getter;
 public abstract class Bien {
     private String descripcion;
     private SubcategoriaBien subcategoria;
-    private CantidadDeBien cantidadDeBien;
+    private Double cantidadDeBien;
     private String foto;
+    private double cantidad;
+    private Boolean yaFueDonado = false;
 
-    public Bien(String descripcion, SubcategoriaBien subcategoria, CantidadDeBien cantidadDeBien, String foto) {
+    public Bien(String descripcion, SubcategoriaBien subcategoria, Double cantidad, String foto) {
         if (descripcion == null) {
             throw new IllegalArgumentException("¡El bien debe tener una descripción!");
         }
         if (subcategoria == null) {
             throw new IllegalArgumentException("¡El bien debe tener una subcategoría asociada!");
         }
+        if (cantidad == null || cantidad <= 0) {
+            throw new IllegalArgumentException("¡Debe indicarse una cantidad válida de bienes!");
+        }
 
         this.descripcion = descripcion;
         this.subcategoria = subcategoria;
-        this.cantidadDeBien = cantidadDeBien;
+        this.cantidad = cantidad;
         this.foto = foto;
+    }
+
+    public void fueDonado() {
+        this.yaFueDonado = true;
     }
 }

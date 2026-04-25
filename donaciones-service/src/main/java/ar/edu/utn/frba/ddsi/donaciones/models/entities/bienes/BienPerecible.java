@@ -8,8 +8,12 @@ import java.time.LocalDate;
 public class BienPerecible extends Bien {
     private LocalDate fechaDeVencimiento;
 
-    public BienPerecible(String descripcion, SubcategoriaBien subcategoria, CantidadDeBien cantidadDeBien, String foto, LocalDate fechaDeVencimiento) {
+    public BienPerecible(String descripcion, SubcategoriaBien subcategoria, Double cantidadDeBien, String foto, LocalDate fechaDeVencimiento) {
         super(descripcion, subcategoria, cantidadDeBien, foto);
+
+        if (fechaDeVencimiento == null) {
+            throw new IllegalArgumentException("¡Se debe ingresar una fecha de vencimiento!");
+        }
         this.fechaDeVencimiento = fechaDeVencimiento;
     }
 

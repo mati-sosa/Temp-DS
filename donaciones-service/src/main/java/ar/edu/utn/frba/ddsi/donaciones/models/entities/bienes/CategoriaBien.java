@@ -8,26 +8,18 @@ import java.util.List;
 @Getter
 public class CategoriaBien {
     private String descripcion;
-    private List<SubcategoriaBien> subcategorias;
+    private List<SubcategoriaBien> subcategorias = null;
 
     public CategoriaBien(String descripcion, List<SubcategoriaBien> subcategorias) {
-        if (subcategorias == null || subcategorias.isEmpty()) {
-            throw new IllegalArgumentException("¡Una categoría debe tener al menos una subcategoría asociada!");
-        }
-
         this.descripcion = descripcion;
-        this.subcategorias = new ArrayList<>(subcategorias);
     }
 
-    public void agregarSubcategoria(SubcategoriaBien nuevaSubcategoria) {
+    public void agregarSubcategoria(List<SubcategoriaBien> nuevaSubcategoria) {
         if (nuevaSubcategoria == null) {
             throw new IllegalArgumentException("¡La subcategoría a agregar no puede ser NULL!");
         }
-        if (this.subcategorias.contains(nuevaSubcategoria)) {
-            throw new IllegalArgumentException("¡Esta subcategoría ya está asociada a la categoría!");
-        }
 
-        this.subcategorias.add(nuevaSubcategoria);
+        this.subcategorias.addAll(nuevaSubcategoria);
     }
 
     public void eliminarSubcategoria(SubcategoriaBien subcategoriaEliminada) {

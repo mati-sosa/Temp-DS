@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.ddsi.donaciones.models.entities.donaciones;
 
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.bienes.Bien;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.bienes.UnidadDeMedida;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Donante;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,9 +17,23 @@ public class Donacion {
     private Donante donante;
 
     public Donacion(String descripcion, List<Bien> bienes, Donante donante) {
+        if(descripcion == null) {
+            throw new IllegalArgumentException("¡Se debe ingresar una descripción!");
+        }
+        if (bienes == null || bienes.isEmpty()) {
+            throw new IllegalArgumentException("¡La donación debe tener bienes asociados!");
+        }
+        if (donante == null) {
+            throw new IllegalArgumentException("¡La donación debe tener un donante asociado!");
+        }
+        
         this.descripcion = descripcion;
         this.bienes = bienes;
         this.estado = EstadoDonacion.EN_DEPOSITO;
         this.donante = donante;
+    }
+
+    public Double cantidadDeUnidadesTotales() {
+        return bienes.stream().mapToDouble(Bien::getCantidad).sum();
     }
 }

@@ -6,8 +6,12 @@ import lombok.Getter;
 public class BienConEstado extends BienNoPerecible {
     private Boolean esNuevo;
 
-    public BienConEstado(String descripcion, SubcategoriaBien subcategoria, CantidadDeBien cantidadDeBien, String foto, Boolean esNuevo) {
+    public BienConEstado(String descripcion, SubcategoriaBien subcategoria, Double cantidadDeBien, String foto, Boolean esNuevo) {
         super(descripcion, subcategoria, cantidadDeBien, foto);
+        
+        if (esNuevo == null) {
+            throw new IllegalArgumentException("¡Se debe ingresar un estado!");
+        }
         this.esNuevo = esNuevo;
     }
 }

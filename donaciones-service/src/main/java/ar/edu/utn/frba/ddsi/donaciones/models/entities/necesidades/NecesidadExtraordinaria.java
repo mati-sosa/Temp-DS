@@ -1,16 +1,15 @@
 package ar.edu.utn.frba.ddsi.donaciones.models.entities.necesidades;
 
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.bienes.CategoriaBien;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.bienes.CantidadDeBien;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.bienes.SubcategoriaBien;
 
 public class NecesidadExtraordinaria extends Necesidad {
 
-    public NecesidadExtraordinaria(String descripcion, CategoriaBien categoria, CantidadDeBien cantidadDeBien) {
-        super(descripcion, categoria, cantidadDeBien);
+    public NecesidadExtraordinaria(String descripcion, SubcategoriaBien categoria, Double cantidadRequerida) {
+        super(descripcion, categoria, cantidadRequerida);
     }
 
     @Override
     public Boolean estaSatisfecha() {
-        return getCantidadCubierta() >= getCantidadDeBien().getCantidad();
+        return getCantidadCubierta() >= getCantidadRequerida();
     }
 }

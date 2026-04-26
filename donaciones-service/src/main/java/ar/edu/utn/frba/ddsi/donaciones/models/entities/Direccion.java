@@ -21,4 +21,9 @@ public class Direccion {
             throw new IllegalArgumentException("¡Debe ingresar una dirección completa!");
         }
     }
+
+    @Override
+    public String toString(){
+        return calle + ", " + ciudad + ", " + provincia  + ", " + codigoPostal;
+    }
 }

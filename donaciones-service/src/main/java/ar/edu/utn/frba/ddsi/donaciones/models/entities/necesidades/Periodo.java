@@ -11,4 +11,9 @@ public class Periodo {
         this.tipoPeriodo = tipoPeriodo;
         this.cantidad = cantidad;
     }
+
+    @Override
+    public String toString(){
+        return tipoPeriodo + " " + cantidad;
+    }
 }

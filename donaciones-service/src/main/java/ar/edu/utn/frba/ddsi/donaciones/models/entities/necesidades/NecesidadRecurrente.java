@@ -8,8 +8,8 @@ public class NecesidadRecurrente extends Necesidad {
     private Double cantidadPorPeriodo;
     private Periodo periodo;
 
-    public NecesidadRecurrente(String descripcion, SubcategoriaBien categoria, Double cantidadRequerida, Double cantidadPorPeriodo, Periodo periodo) {
-        super(descripcion, categoria, cantidadRequerida);
+    public NecesidadRecurrente(String descripcion, SubcategoriaBien subCategoria, Double cantidadRequerida, Double cantidadPorPeriodo, Periodo periodo) {
+        super(descripcion, subCategoria, cantidadRequerida);
         this.cantidadPorPeriodo = cantidadPorPeriodo;
         this.periodo = periodo;
     }
@@ -17,5 +17,14 @@ public class NecesidadRecurrente extends Necesidad {
     @Override
     public Boolean estaSatisfecha() {
         return getCantidadCubierta() >= cantidadPorPeriodo;
+    }
+
+    @Override
+    public String toString(){
+        return getDescripcion() + " " +
+                getSubcategoria() + " " +
+                getCantidadRequerida() + " " +
+                cantidadPorPeriodo  + " " +
+                periodo;
     }
 }

@@ -53,4 +53,14 @@ public class EntidadBeneficiaria {
 
         necesidades.add(nuevaNecesidad);
     }
+
+    @Override
+    public String toString(){
+        return tipo + "\n" +
+               razonSocial + "\n" +
+                direccion + "\n" +
+                telefono + "\n" +
+                representantes  + "\n" +
+                necesidades;
+    }
 }

@@ -15,4 +15,9 @@ public class TipoEntidadBeneficiaria {
         this.tipoEntidad = tipoEntidad;
         this.descripcion = descripcion;
     }
+
+    @Override
+    public String toString(){
+        return tipoEntidad + ": " + descripcion;
+    }
 }

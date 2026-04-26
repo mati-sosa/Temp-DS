@@ -13,7 +13,7 @@ public class Donacion {
     private String descripcion;
     private List<Bien> bienes;
     @Setter
-    private EstadoDonacion estado;
+//    private EstadoDonacion estado;
     private Donante donante;
 
     public Donacion(String descripcion, List<Bien> bienes, Donante donante) {
@@ -29,7 +29,7 @@ public class Donacion {
         
         this.descripcion = descripcion;
         this.bienes = bienes;
-        this.estado = EstadoDonacion.EN_DEPOSITO;
+//        this.estado = EstadoDonacion.EN_DEPOSITO;
         this.donante = donante;
     }
 
@@ -43,7 +43,7 @@ public class Donacion {
     public String toString(){
         return "Descripcion: " + descripcion + "\n" +
                 "Lista de bienes: " + bienes + "\n" +
-                "Estado: " + estado + "\n" +
+//                "Estado: " + estado + "\n" +
                 "Donante: " + donante;
     }
 }

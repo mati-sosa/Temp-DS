@@ -14,4 +14,13 @@ public class BienConEstado extends BienNoPerecible {
         }
         this.esNuevo = esNuevo;
     }
+
+    @Override
+    public String toString(){
+        return getDescripcion() + " " +
+                getSubcategoria() + " " +
+                getCantidad() + " " +
+                getFoto() + " " +
+                getEsNuevo();
+    }
 }

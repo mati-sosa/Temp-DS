@@ -6,7 +6,6 @@ import lombok.Getter;
 public abstract class Bien {
     private String descripcion;
     private SubcategoriaBien subcategoria;
-    private Double cantidadDeBien;
     private String foto;
     private double cantidad;
     private Boolean yaFueDonado = false;

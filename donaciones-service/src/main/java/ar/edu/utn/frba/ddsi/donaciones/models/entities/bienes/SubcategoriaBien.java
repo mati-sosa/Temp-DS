@@ -25,4 +25,12 @@ public class SubcategoriaBien {
         this.categoriaBien = categoriaBien;
         this.unidadDeMedida = unidadDeMedida;
     }
+
+    @Override
+    public String toString(){
+        return descripcion  + " " +
+                esPerecedero + " " +
+                categoriaBien + " " +
+                unidadDeMedida;
+    }
 }

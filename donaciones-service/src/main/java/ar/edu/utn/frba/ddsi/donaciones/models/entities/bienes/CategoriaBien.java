@@ -10,7 +10,7 @@ public class CategoriaBien {
     private String descripcion;
     private List<SubcategoriaBien> subcategorias = null;
 
-    public CategoriaBien(String descripcion, List<SubcategoriaBien> subcategorias) {
+    public CategoriaBien(String descripcion) {
         this.descripcion = descripcion;
     }
 
@@ -28,5 +28,10 @@ public class CategoriaBien {
 
     public Boolean contieneSubcategoria(SubcategoriaBien subcategoria) {
         return this.subcategorias.contains(subcategoria);
+    }
+
+    @Override
+    public String toString() {
+        return descripcion;
     }
 }

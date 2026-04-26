@@ -8,8 +8,8 @@ import java.time.LocalDate;
 public class BienPerecible extends Bien {
     private LocalDate fechaDeVencimiento;
 
-    public BienPerecible(String descripcion, SubcategoriaBien subcategoria, Double cantidadDeBien, String foto, LocalDate fechaDeVencimiento) {
-        super(descripcion, subcategoria, cantidadDeBien, foto);
+    public BienPerecible(String descripcion, SubcategoriaBien subcategoria, Double cantidad, String foto, LocalDate fechaDeVencimiento) {
+        super(descripcion, subcategoria, cantidad, foto);
 
         if (fechaDeVencimiento == null) {
             throw new IllegalArgumentException("¡Se debe ingresar una fecha de vencimiento!");
@@ -19,5 +19,14 @@ public class BienPerecible extends Bien {
 
     public boolean estaVencido() {
         return LocalDate.now().isAfter(fechaDeVencimiento);
+    }
+
+    @Override
+    public String toString(){
+        return getDescripcion() + " " +
+                getSubcategoria() + " " +
+                getCantidad()  + " " +
+                getFoto() + " " +
+                getFechaDeVencimiento();
     }
 }

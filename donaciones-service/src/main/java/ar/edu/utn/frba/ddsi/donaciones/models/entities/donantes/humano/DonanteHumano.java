@@ -4,9 +4,11 @@ import ar.edu.utn.frba.ddsi.donaciones.models.entities.Direccion;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.MedioDeContacto;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.TipoMedioContacto;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Donante;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class DonanteHumano extends Donante {
     private int edad;
     private String numeroDocumento;
@@ -70,5 +72,11 @@ public class DonanteHumano extends Donante {
     public void cambiarMedioPredeterminado(MedioDeContacto nuevoMedioPredeterminado) {
         validarMedioPredeterminado(this.mediosDeContacto, nuevoMedioPredeterminado);
         medioPredeterminado = nuevoMedioPredeterminado;
+    }
+
+
+    @Override
+    public String toString(){
+        return nombre + " " + mediosDeContacto;
     }
 }

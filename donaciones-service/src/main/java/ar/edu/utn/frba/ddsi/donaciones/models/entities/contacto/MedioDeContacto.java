@@ -11,4 +11,9 @@ public class MedioDeContacto {
         this.tipoMedioContacto = tipoMedioContacto;
         this.direccion = direccion;
     }
+
+    @Override
+    public String toString(){
+        return tipoMedioContacto.name() + " " + direccion;
+    }
 }

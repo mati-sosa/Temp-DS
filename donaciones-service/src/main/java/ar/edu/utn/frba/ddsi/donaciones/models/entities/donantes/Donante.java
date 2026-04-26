@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Donante {
-    private String nombre;
+    protected String nombre;
     public List<MedioDeContacto> mediosDeContacto;
 
     public Donante(String nombre, List<MedioDeContacto> mediosDeContacto) {

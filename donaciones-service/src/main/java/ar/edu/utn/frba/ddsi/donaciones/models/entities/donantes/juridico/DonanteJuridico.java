@@ -46,6 +46,11 @@ public class DonanteJuridico extends Donante {
 
         this.representantes.remove(representanteEliminado);
     }
+
+    @Override
+    public String toString(){
+        return nombre + ' ' + mediosDeContacto + ' ' + tipo + ' ' + representantes  + ' ' + rubro.getDescripcion();
+    }
 }
 
         

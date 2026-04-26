@@ -2,7 +2,7 @@ package ar.edu.utn.frba.ddsi.donaciones;
 
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.Direccion;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.Representante;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.Rubro;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.juridico.Rubro;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.MedioDeContacto;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.TipoMedioContacto;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.humano.DonanteHumano;

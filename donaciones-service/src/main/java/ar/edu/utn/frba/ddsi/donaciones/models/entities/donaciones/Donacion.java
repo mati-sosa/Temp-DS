@@ -36,4 +36,14 @@ public class Donacion {
     public Double cantidadDeUnidadesTotales() {
         return bienes.stream().mapToDouble(Bien::getCantidad).sum();
     }
+
+
+
+    @Override
+    public String toString(){
+        return "Descripcion: " + descripcion + "\n" +
+                "Lista de bienes: " + bienes + "\n" +
+                "Estado: " + estado + "\n" +
+                "Donante: " + donante;
+    }
 }

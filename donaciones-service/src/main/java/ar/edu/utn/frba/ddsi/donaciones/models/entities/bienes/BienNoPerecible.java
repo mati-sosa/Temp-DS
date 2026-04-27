@@ -1,9 +1,18 @@
 package ar.edu.utn.frba.ddsi.donaciones.models.entities.bienes;
 
-public class BienNoPerecible extends Bien {
+import lombok.Getter;
+import lombok.Setter;
 
-    public BienNoPerecible(String descripcion, SubcategoriaBien subcategoria, Double cantidad, String foto) {
+public class BienNoPerecible extends Bien {
+    private boolean tieneEstado;
+    @Getter
+    @Setter
+    private boolean estado;
+
+    public BienNoPerecible(String descripcion, SubcategoriaBien subcategoria, Double cantidad, String foto, boolean tieneEstado, boolean estado) {
         super(descripcion, subcategoria, cantidad, foto);
+        this.tieneEstado = tieneEstado;
+        this.estado = estado;
     }
 
     @Override

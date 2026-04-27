@@ -33,6 +33,10 @@ public class DonacionesTest {
             "Higiene"
     );
 
+    private CategoriaBien categoriaMedicamentos = new CategoriaBien(
+            "Medicamentos"
+    );
+
     //-------------------- Alta Subcategoria --------------------//
     private SubcategoriaBien categoriaArroz = new SubcategoriaBien(
             "Arroz",
@@ -55,7 +59,14 @@ public class DonacionesTest {
             UnidadDeMedida.UNIDADES
     );
 
-    private SubcategoriaBien subCategoria2 = new SubcategoriaBien(
+    private SubcategoriaBien subCategoriaIbuprofeno = new SubcategoriaBien(
+            "Ibuprofeno 400",
+            false,
+            categoriaMedicamentos,
+            UnidadDeMedida.UNIDADES
+    );
+
+    private SubcategoriaBien subCategoriaBicicleta = new SubcategoriaBien(
             "Bicicletas",
             false,
             categoriaVehiculos,
@@ -119,26 +130,29 @@ public class DonacionesTest {
     }
 
     @Test
-    void altaBienNoPerecible(){
-        BienNoPerecible bienNoPerecible1 = new BienNoPerecible(
-                "Bicicleta tipo inglesa",
-                subCategoria2,
-                2.0,
-                "fotoBicis.jpg"
-        );
-        System.out.println(bienNoPerecible1);
-    }
-
-    @Test
     void altaBienNoPerecibleConEstado(){
-        BienConEstado bienConEstado = new BienConEstado(
+        BienNoPerecible bienConEstado = new BienNoPerecible(
                 "Bicicleta tipo inglesa",
-                subCategoria2,
+                subCategoriaBicicleta,
                 2.0,
                 "fotoBicis.jpg",
+                true,
                 true
         );
         System.out.println(bienConEstado);
+    }
+
+    @Test
+    void altaBienNoPerecibleSinEstado(){
+        BienNoPerecible bienSinEstado = new BienNoPerecible(
+                "Cajas con 1 blister de 10 comprimidos blandos c/u",
+                subCategoriaIbuprofeno,
+                30.0,
+                "fotoBicis.jpg",
+                false,
+                false
+        );
+        System.out.println(bienSinEstado);
     }
 
     //-------------------- TEST DONACIONES --------------------//
@@ -166,13 +180,16 @@ public class DonacionesTest {
                 "Mesa para 6 personas",
                 subCategoriaMesa,
                 1.0,
-                "fotoMesaDonar.jpg"
+                "fotoMesaDonar.jpg",
+                true,
+                true
         ));
-        bienesADonarPorMudanza.add(new BienConEstado(
+        bienesADonarPorMudanza.add(new BienNoPerecible(
                 "Sillas de madera",
                 subCategoriaSilla,
                 6.0,
                 "fotoSillasDonar.jpg",
+                true,
                 false
         ));
         bienesADonarPorMudanza.add(new BienPerecible(
@@ -186,7 +203,9 @@ public class DonacionesTest {
                 "Jabon blanco",
                 subCategoriaJabon,
                 10.0,
-                "fotoJabones.jpg"
+                "fotoJabones.jpg",
+                false,
+                false
         ));
 
         Donacion donacion1 = new Donacion(

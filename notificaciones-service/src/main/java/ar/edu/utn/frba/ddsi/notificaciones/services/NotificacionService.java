@@ -14,8 +14,10 @@ public class NotificacionService {
     public void enviar(NotificacionRequest request){
         Notificador notificador;
         MedioDeContacto medioDeContacto = request.getMedioDeContacto();
+
         String destino = medioDeContacto.getDireccion();
         TipoMedioContacto tipo = medioDeContacto.getTipoMedioContacto();
+        String mensaje = request.getMensaje();
 
         switch (tipo) {
             case EMAIL:
@@ -32,7 +34,7 @@ public class NotificacionService {
         }
 
         validarDestino(tipo, destino);
-        notificador.enviar(request.getMedioDeContacto().getDireccion(), request.getMensaje());
+        notificador.enviar(destino, mensaje);
     }
 
     private void validarDestino(TipoMedioContacto tipo, String destino) {

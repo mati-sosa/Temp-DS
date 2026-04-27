@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class NotificacionRequest {
-    private String destinatario;
     private MedioDeContacto medioDeContacto;
     private String mensaje;
 }

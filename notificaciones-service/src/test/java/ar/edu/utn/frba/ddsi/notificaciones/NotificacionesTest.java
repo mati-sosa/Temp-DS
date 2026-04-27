@@ -16,7 +16,6 @@ public class NotificacionesTest {
 
         MedioDeContacto medio = new MedioDeContacto(TipoMedioContacto.EMAIL, "test@email.com");
         request.setMedioDeContacto(medio);
-        request.setDestinatario("test@email.com");
         request.setMensaje("HOLA EMAIL!");
 
         assertDoesNotThrow(() -> service.enviar(request));
@@ -28,7 +27,6 @@ public class NotificacionesTest {
 
         MedioDeContacto medio = new MedioDeContacto(TipoMedioContacto.EMAIL, "asdasd123123");
         request.setMedioDeContacto(medio);
-        request.setDestinatario("test@email.com");
         request.setMensaje("HOLA EMAIL!");
 
         assertThrows(RuntimeException.class, () -> {
@@ -42,7 +40,6 @@ public class NotificacionesTest {
 
         MedioDeContacto medio = new MedioDeContacto(TipoMedioContacto.SMS, "asdasd123");
         request.setMedioDeContacto(medio);
-        request.setDestinatario("asdasd123");
         request.setMensaje("HOLA TELÉFONO!");
 
         assertThrows(RuntimeException.class, () -> {

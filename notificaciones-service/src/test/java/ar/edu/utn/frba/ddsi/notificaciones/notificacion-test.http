@@ -1,0 +1,11 @@
+POST http://localhost:8081/enviar-notificacion
+Content-Type: application/json
+
+{
+  "destinatario": "Ramiro",
+  "medioDeContacto": {
+    "tipoMedioContacto": "EMAIL",
+    "direccion": "ramiro@gmail.com"
+  },
+  "mensaje": "Hola sistema"
+}

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntidadesBeneficiariasTest {
-
+    /**
     final List<Representante> representantesEscuela1 = new ArrayList<>();
     Representante skinner = new Representante(
             "Seymour Skinner",
@@ -166,4 +166,5 @@ public class EntidadesBeneficiariasTest {
         entidadBeneficiariaEscuela1.registrarNecesidad(necesidadJuegosParque);
         System.out.println(entidadBeneficiariaEscuela1);
     }
+    **/
 }

@@ -4,6 +4,7 @@ import ar.edu.utn.frba.ddsi.donaciones.models.entities.Representante;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.MedioDeContacto;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.TipoMedioContacto;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Donante {
     private String documento;
     private TipoDocumento tipoDocumento;
     private TipoPersona tipoPersona;
-    private Date fechaDeNacimiento_inicioActividad;
+    private LocalDate fechaDeNacimiento_inicioActividad;
     public List<MedioDeContacto> mediosDeContacto;
     public List<Representante> representantes;
     private Rubro rubro;
@@ -27,7 +28,7 @@ public class Donante {
             String unDocumento,
             TipoDocumento unTipoDocumento,
             TipoPersona unTipoPersona,
-            Date unaFechaDeNacimiento_inicioActividad,
+            LocalDate unaFechaDeNacimiento_inicioActividad,
             List<MedioDeContacto> mediosDeContacto,
             List<Representante> representantes,
             Rubro unRubro,

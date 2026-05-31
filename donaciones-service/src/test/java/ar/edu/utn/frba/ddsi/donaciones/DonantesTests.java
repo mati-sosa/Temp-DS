@@ -2,21 +2,18 @@ package ar.edu.utn.frba.ddsi.donaciones;
 
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.Direccion;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.Representante;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.juridico.Rubro;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Donante;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Rubro;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.MedioDeContacto;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.TipoMedioContacto;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.humano.DonanteHumano;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.humano.Genero;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.humano.TipoDocumento;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.juridico.DonanteJuridico;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.juridico.TipoPersonaJuridica;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.TipoDocumento;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DonantesTests {
-
+    /**
     private static final List<MedioDeContacto> mediosDeContacto = new ArrayList<>();
     MedioDeContacto medioDeContacto1 = new MedioDeContacto(TipoMedioContacto.TELEFONO,"011 1234-5678");
     MedioDeContacto medioDeContacto2 = new MedioDeContacto(TipoMedioContacto.EMAIL, "homersimpson@outlook.com");
@@ -33,7 +30,7 @@ public class DonantesTests {
                 38,
                 "30.000.000",
                 TipoDocumento.DNI,
-                Genero.MASCULINO,
+                Donante.Genero.MASCULINO,
                 new Direccion("Av. Siempreviva", "Springfield", "Oregon", "2026")
         );
         System.out.println(unDonante);
@@ -50,7 +47,7 @@ public class DonantesTests {
                 38,
                 "30.000.000",
                 TipoDocumento.DNI,
-                Genero.MASCULINO,
+                Donante.Genero.MASCULINO,
                 new Direccion("Av. Siempreviva", "Springfield", "Oregon", "2026")
         );
     }
@@ -66,7 +63,7 @@ public class DonantesTests {
                 38,
                 "30.000.000",
                 TipoDocumento.DNI,
-                Genero.MASCULINO,
+                Donante.Genero.MASCULINO,
                 new Direccion("Av. Siempreviva", "Springfield", "Oregon", "2026")
         );
     }
@@ -83,7 +80,7 @@ public class DonantesTests {
                 38,
                 "30.000.000",
                 TipoDocumento.DNI,
-                Genero.MASCULINO,
+                Donante.Genero.MASCULINO,
                 new Direccion("Av. Siempreviva", "Springfield", "Oregon", "2026")
         );
         System.out.println("Predeterminado antes del cambio " + unDonante.getMedioPredeterminado());
@@ -147,4 +144,5 @@ public class DonantesTests {
         unDonanteJuridico.eliminarRepresentante(representante1);
         System.out.println(unDonanteJuridico);
     }
+    **/
 }

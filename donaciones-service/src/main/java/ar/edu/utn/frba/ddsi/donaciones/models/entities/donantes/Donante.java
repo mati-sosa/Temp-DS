@@ -3,10 +3,10 @@ import ar.edu.utn.frba.ddsi.donaciones.models.entities.Direccion;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.Representante;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.MedioDeContacto;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.TipoMedioContacto;
+import lombok.Getter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Donante {
@@ -16,6 +16,8 @@ public class Donante {
     private TipoPersona tipoPersona;
     private LocalDate fechaDeNacimiento_inicioActividad;
     public List<MedioDeContacto> mediosDeContacto;
+    @Getter
+    private MedioDeContacto medioPredeterminado;
     public List<Representante> representantes;
     private Rubro rubro;
     private Genero genero;
@@ -30,6 +32,7 @@ public class Donante {
             TipoPersona unTipoPersona,
             LocalDate unaFechaDeNacimiento_inicioActividad,
             List<MedioDeContacto> mediosDeContacto,
+            MedioDeContacto unMedioPredeterminado,
             List<Representante> representantes,
             Rubro unRubro,
             Genero unGenero,
@@ -48,12 +51,19 @@ public class Donante {
             }
         }
 
+        if (unTipoPersona == TipoPersona.EMPRESA){
+            if (representantes.isEmpty()) {
+                throw new IllegalArgumentException("¡La empresa debe tener al menos un representante!");
+            }
+        }
+
         nombre_razonSocial = unNombre_razonSocial;
         documento = unDocumento;
         tipoDocumento = unTipoDocumento;
         tipoPersona = unTipoPersona;
         fechaDeNacimiento_inicioActividad = unaFechaDeNacimiento_inicioActividad;
         this.mediosDeContacto = new ArrayList<>(mediosDeContacto);
+        medioPredeterminado = unMedioPredeterminado;
         this.representantes = new ArrayList<>(representantes);
         rubro = unRubro;
         genero = unGenero;
@@ -82,6 +92,10 @@ public class Donante {
         mediosDeContacto.remove(medioDeContactoEliminado);
     }
 
+    public void cambiarMedioPredeterminado(MedioDeContacto nuevoMedioPredeterminado) {
+        medioPredeterminado = nuevoMedioPredeterminado;
+    }
+
     /********** REPRESENTANTES **********/
     public void agregarRepresentante(Representante nuevoRepresentante) {
         if (this.representantes.contains(nuevoRepresentante)) {
@@ -102,5 +116,8 @@ public class Donante {
         this.representantes.remove(representanteEliminado);
     }
 
-
+    @Override
+    public String toString() {
+        return "Donante: " + nombre_razonSocial + ", " + tipoDocumento + ": " + documento + ", tipo de persona:" + tipoPersona;
+    }
 }

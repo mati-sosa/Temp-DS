@@ -6,19 +6,15 @@ import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.MedioDeContacto;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.TipoMedioContacto;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donaciones.Administrador;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donaciones.Deposito;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.donaciones.Donacion;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donaciones.DonacionTotal;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Donante;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Genero;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.TipoDocumento;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.TipoPersona;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Null;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class DonacionesTest {
@@ -99,13 +95,11 @@ public class DonacionesTest {
 
     MedioDeContacto medioDeContacto1 = new MedioDeContacto(
             TipoMedioContacto.TELEFONO,
-            "011 1234-5678",
-            false
+            "011 1234-5678"
     );
     MedioDeContacto medioDeContacto2 = new MedioDeContacto(
             TipoMedioContacto.EMAIL,
-            "homersimpson@outlook.com",
-            true
+            "homersimpson@outlook.com"
     );
 
     @Test
@@ -191,6 +185,7 @@ public class DonacionesTest {
                 TipoPersona.FISICA,
                 LocalDate.of(1970, 5, 30),
                 mediosDeContacto,
+                medioDeContacto1,
                 new ArrayList<>(),
                 null,
                 Genero.MASCULINO,
@@ -246,8 +241,6 @@ public class DonacionesTest {
                 homeroDonante,
                 unDeposito
         );
-
-        //System.out.println(donacionTotal1);
         donacionTotal1.segmentarDonacion();
         System.out.println(donacionTotal1);
     }

@@ -2,18 +2,18 @@ package ar.edu.utn.frba.ddsi.donaciones;
 
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.Direccion;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.Representante;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Donante;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Rubro;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.*;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.MedioDeContacto;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.TipoMedioContacto;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.TipoDocumento;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DonantesTests {
-    /**
+
     private static final List<MedioDeContacto> mediosDeContacto = new ArrayList<>();
     MedioDeContacto medioDeContacto1 = new MedioDeContacto(TipoMedioContacto.TELEFONO,"011 1234-5678");
     MedioDeContacto medioDeContacto2 = new MedioDeContacto(TipoMedioContacto.EMAIL, "homersimpson@outlook.com");
@@ -23,14 +23,17 @@ public class DonantesTests {
     void altaDonanteHumano(){
         mediosDeContacto.add(medioDeContacto1);
         mediosDeContacto.add(medioDeContacto2);
-        DonanteHumano unDonante = new DonanteHumano(
+        Donante unDonante = new Donante(
                 "Homero",
-                mediosDeContacto,
-                medioDeContacto1,
-                38,
                 "30.000.000",
                 TipoDocumento.DNI,
-                Donante.Genero.MASCULINO,
+                TipoPersona.FISICA,
+                LocalDate.of(1997,8,2),
+                mediosDeContacto,
+                medioDeContacto2,
+                new ArrayList<Representante>(),
+                null,
+                Genero.MASCULINO,
                 new Direccion("Av. Siempreviva", "Springfield", "Oregon", "2026")
         );
         System.out.println(unDonante);
@@ -39,33 +42,21 @@ public class DonantesTests {
     @Test
     void altaDonanteHumanoConExcepcionEmail(){
         mediosDeContacto.add(medioDeContacto1);
-
-        DonanteHumano unDonante = new DonanteHumano(
-                "Homero",
-                mediosDeContacto,
-                medioDeContacto1,
-                38,
-                "30.000.000",
-                TipoDocumento.DNI,
-                Donante.Genero.MASCULINO,
-                new Direccion("Av. Siempreviva", "Springfield", "Oregon", "2026")
-        );
-    }
-
-    @Test
-    void altaDonanteHumanoConExcepcionPreferencia(){
-        mediosDeContacto.add(medioDeContacto2);
-
-        DonanteHumano unDonante = new DonanteHumano(
-                "Homero",
-                mediosDeContacto,
-                medioDeContacto3,
-                38,
-                "30.000.000",
-                TipoDocumento.DNI,
-                Donante.Genero.MASCULINO,
-                new Direccion("Av. Siempreviva", "Springfield", "Oregon", "2026")
-        );
+        assertThrows(IllegalArgumentException.class, () -> {
+            Donante unDonante = new Donante(
+                    "Homero",
+                    "30.000.000",
+                    TipoDocumento.DNI,
+                    TipoPersona.FISICA,
+                    LocalDate.of(1997,8,2),
+                    mediosDeContacto,
+                    medioDeContacto1,
+                    new ArrayList<Representante>(),
+                    null,
+                    Genero.MASCULINO,
+                    new Direccion("Av. Siempreviva", "Springfield", "Oregon", "2026")
+            );
+        });
     }
 
     @Test
@@ -73,38 +64,59 @@ public class DonantesTests {
         mediosDeContacto.add(medioDeContacto1);
         mediosDeContacto.add(medioDeContacto2);
 
-        DonanteHumano unDonante = new DonanteHumano(
+        Donante unDonante = new Donante(
                 "Homero",
-                mediosDeContacto,
-                medioDeContacto1,
-                38,
                 "30.000.000",
                 TipoDocumento.DNI,
-                Donante.Genero.MASCULINO,
+                TipoPersona.FISICA,
+                LocalDate.of(1997,8,2),
+                mediosDeContacto,
+                medioDeContacto1,
+                new ArrayList<Representante>(),
+                null,
+                Genero.MASCULINO,
                 new Direccion("Av. Siempreviva", "Springfield", "Oregon", "2026")
         );
-        System.out.println("Predeterminado antes del cambio " + unDonante.getMedioPredeterminado());
+        System.out.println("Predeterminado antes del cambio: " + unDonante.getMedioPredeterminado());
         unDonante.cambiarMedioPredeterminado(medioDeContacto2);
-        System.out.println("Predeterminado despues del cambio " + unDonante.getMedioPredeterminado());
+        System.out.println("Predeterminado despues del cambio: " + unDonante.getMedioPredeterminado());
     }
 
     //-------------------------------------------------------------------------------------------------------//
 
     private static final List<Representante> representantes = new ArrayList<>();
-    Representante representante1 = new Representante("Marge", new MedioDeContacto(TipoMedioContacto.EMAIL,"margesimpson@outlook.com"));
-    Representante representante2 = new Representante("Abraham", new MedioDeContacto(TipoMedioContacto.EMAIL,"011 1111-1111"));
+    Representante representante1 = new Representante(
+            "Marge",
+            new MedioDeContacto(
+                    TipoMedioContacto.EMAIL,
+                    "margesimpson@outlook.com"
+            )
+    );
+    Representante representante2 = new Representante(
+            "Abraham",
+            new MedioDeContacto(
+                    TipoMedioContacto.EMAIL,
+                    "011 1111-1111"
+            )
+    );
 
     @Test
     void altaDonanteJuridico(){
         representantes.add(representante1);
         mediosDeContacto.add(medioDeContacto1);
 
-        DonanteJuridico unDonanteJuridico = new DonanteJuridico(
+        Donante unDonanteJuridico = new Donante(
                 "Los Simpsons S.A.",
+                "10-11000111-1",
+                TipoDocumento.CUIT,
+                TipoPersona.EMPRESA,
+                LocalDate.of(1990,1,15),
                 mediosDeContacto,
-                TipoPersonaJuridica.EMPRESA,
+                medioDeContacto1,
                 representantes,
-                new Rubro("Actores")
+                new Rubro("Limpieza"),
+                Genero.NO_APLICA,
+                new Direccion("El jilguero","Springfield","Oregon","2026")
         );
 
         System.out.println(unDonanteJuridico);
@@ -114,35 +126,20 @@ public class DonantesTests {
     void altaDonanteJuridicoSinRepresentante(){
         mediosDeContacto.add(medioDeContacto1);
 
-        DonanteJuridico unDonanteJuridico = new DonanteJuridico(
+        assertThrows(IllegalArgumentException.class, () -> {
+                new Donante(
                 "Los Simpsons S.A.",
+                "10-11000111-1",
+                TipoDocumento.CUIT,
+                TipoPersona.EMPRESA,
+                LocalDate.of(1990,1,15),
                 mediosDeContacto,
-                TipoPersonaJuridica.EMPRESA,
-                representantes,
-                new Rubro("Actores")
-        );
-
-        System.out.println(unDonanteJuridico);
+                medioDeContacto1,
+                new ArrayList<Representante>(),
+                new Rubro("Limpieza"),
+                Genero.NO_APLICA,
+                new Direccion("El jilguero","Springfield","Oregon","2026")
+            );
+        });
     }
-
-    @Test
-    void altaVariosRepresentantes(){
-        representantes.add(representante1);
-        mediosDeContacto.add(medioDeContacto1);
-
-        DonanteJuridico unDonanteJuridico = new DonanteJuridico(
-                "Los Simpsons S.A.",
-                mediosDeContacto,
-                TipoPersonaJuridica.EMPRESA,
-                representantes,
-                new Rubro("Actores")
-        );
-
-        System.out.println(unDonanteJuridico);
-        unDonanteJuridico.agregarRepresentante(representante2);
-        System.out.println(unDonanteJuridico);
-        unDonanteJuridico.eliminarRepresentante(representante1);
-        System.out.println(unDonanteJuridico);
-    }
-    **/
 }

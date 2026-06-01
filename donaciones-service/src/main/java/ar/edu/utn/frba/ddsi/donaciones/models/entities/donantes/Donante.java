@@ -4,19 +4,22 @@ import ar.edu.utn.frba.ddsi.donaciones.models.entities.Representante;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.MedioDeContacto;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.TipoMedioContacto;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class Donante {
+    @Setter
+    private Long id;
     private String nombre_razonSocial;
     private String documento;
     private TipoDocumento tipoDocumento;
     private TipoPersona tipoPersona;
     private LocalDate fechaDeNacimiento_inicioActividad;
     public List<MedioDeContacto> mediosDeContacto;
-    @Getter
     private MedioDeContacto medioPredeterminado;
     public List<Representante> representantes;
     private Rubro rubro;

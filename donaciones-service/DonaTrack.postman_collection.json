@@ -1,0 +1,250 @@
+{
+  "info": {
+    "name": "DonaTrack - Donaciones Service",
+    "_postman_id": "donatrack-p1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8080" },
+    { "key": "donante_id", "value": "1" },
+    { "key": "donacion_id", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Donantes",
+      "item": [
+        {
+          "name": "Crear donante humano",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/donantes", "host": ["{{base_url}}"], "path": ["donantes"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreRazonSocial\": \"Homero Simpson\",\n  \"documento\": \"30000000\",\n  \"tipoDocumento\": \"DNI\",\n  \"tipoPersona\": \"FISICA\",\n  \"fechaNacimientoInicioActividad\": \"1970-05-12\",\n  \"mediosDeContacto\": [\n    { \"tipo\": \"EMAIL\", \"valor\": \"homero@springfield.com\" },\n    { \"tipo\": \"TELEFONO\", \"valor\": \"011-1234-5678\" }\n  ],\n  \"medioPredeterminado\": { \"tipo\": \"EMAIL\", \"valor\": \"homero@springfield.com\" },\n  \"representantes\": [],\n  \"genero\": \"MASCULINO\",\n  \"direccion\": {\n    \"calle\": \"Av. Siempreviva 742\",\n    \"ciudad\": \"Springfield\",\n    \"provincia\": \"Oregon\",\n    \"codigoPostal\": \"5000\"\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "Crear donante jurídico",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/donantes", "host": ["{{base_url}}"], "path": ["donantes"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreRazonSocial\": \"Arcos Plateados S.A.\",\n  \"documento\": \"30-12345678-9\",\n  \"tipoDocumento\": \"CUIT\",\n  \"tipoPersona\": \"EMPRESA\",\n  \"fechaNacimientoInicioActividad\": \"2005-03-01\",\n  \"mediosDeContacto\": [\n    { \"tipo\": \"EMAIL\", \"valor\": \"contacto@arcos.com\" },\n    { \"tipo\": \"TELEFONO\", \"valor\": \"011-4444-4444\" }\n  ],\n  \"medioPredeterminado\": { \"tipo\": \"EMAIL\", \"valor\": \"contacto@arcos.com\" },\n  \"representantes\": [\n    { \"nombre\": \"Marge Simpson\", \"email\": \"marge@arcos.com\" }\n  ],\n  \"rubro\": \"Tecnología\",\n  \"genero\": \"NO_APLICA\",\n  \"direccion\": {\n    \"calle\": \"Corrientes 1234\",\n    \"ciudad\": \"Buenos Aires\",\n    \"provincia\": \"CABA\",\n    \"codigoPostal\": \"1043\"\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "Listar donantes",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/donantes", "host": ["{{base_url}}"], "path": ["donantes"] }
+          }
+        },
+        {
+          "name": "Buscar donante por ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/donantes/{{donante_id}}", "host": ["{{base_url}}"], "path": ["donantes", "{{donante_id}}"] }
+          }
+        },
+        {
+          "name": "Actualizar donante",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/donantes/{{donante_id}}", "host": ["{{base_url}}"], "path": ["donantes", "{{donante_id}}"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreRazonSocial\": \"Homero J. Simpson\",\n  \"documento\": \"30000000\",\n  \"tipoDocumento\": \"DNI\",\n  \"tipoPersona\": \"FISICA\",\n  \"fechaNacimientoInicioActividad\": \"1970-05-12\",\n  \"mediosDeContacto\": [\n    { \"tipo\": \"EMAIL\", \"valor\": \"homero.nuevo@springfield.com\" }\n  ],\n  \"medioPredeterminado\": { \"tipo\": \"EMAIL\", \"valor\": \"homero.nuevo@springfield.com\" },\n  \"representantes\": [],\n  \"genero\": \"MASCULINO\",\n  \"direccion\": {\n    \"calle\": \"Av. Siempreviva 742\",\n    \"ciudad\": \"Springfield\",\n    \"provincia\": \"Oregon\",\n    \"codigoPostal\": \"5000\"\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "Eliminar donante",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/donantes/{{donante_id}}", "host": ["{{base_url}}"], "path": ["donantes", "{{donante_id}}"] }
+          }
+        },
+        {
+          "name": "[ERROR 400] Donante sin email",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/donantes", "host": ["{{base_url}}"], "path": ["donantes"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombreRazonSocial\": \"Sin Email\",\n  \"documento\": \"99999999\",\n  \"tipoDocumento\": \"DNI\",\n  \"tipoPersona\": \"FISICA\",\n  \"fechaNacimientoInicioActividad\": \"1990-01-01\",\n  \"mediosDeContacto\": [\n    { \"tipo\": \"TELEFONO\", \"valor\": \"011-0000-0000\" }\n  ],\n  \"medioPredeterminado\": { \"tipo\": \"TELEFONO\", \"valor\": \"011-0000-0000\" },\n  \"representantes\": [],\n  \"genero\": \"MASCULINO\",\n  \"direccion\": {\n    \"calle\": \"Falsa 123\",\n    \"ciudad\": \"Córdoba\",\n    \"provincia\": \"Córdoba\",\n    \"codigoPostal\": \"5000\"\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "[ERROR 400] Campos requeridos faltantes",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/donantes", "host": ["{{base_url}}"], "path": ["donantes"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipoPersona\": \"FISICA\"\n}"
+            }
+          }
+        },
+        {
+          "name": "[ERROR 404] Donante inexistente",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/donantes/9999", "host": ["{{base_url}}"], "path": ["donantes", "9999"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Donaciones",
+      "item": [
+        {
+          "name": "Registrar donación (no perecederos)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/donaciones", "host": ["{{base_url}}"], "path": ["donaciones"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"descripcion\": \"Donación por mudanza de oficina\",\n  \"donanteId\": {{donante_id}},\n  \"bienes\": [\n    {\n      \"descripcion\": \"Mesa rectangular de madera\",\n      \"subcategoriaDescripcion\": \"Mesa\",\n      \"categoriaDescripcion\": \"Mobiliario\",\n      \"unidadMedida\": \"UNIDADES\",\n      \"cantidad\": 1.0,\n      \"perecedero\": false,\n      \"tieneEstado\": true,\n      \"esNuevo\": false\n    },\n    {\n      \"descripcion\": \"Sillas de madera\",\n      \"subcategoriaDescripcion\": \"Silla\",\n      \"categoriaDescripcion\": \"Mobiliario\",\n      \"unidadMedida\": \"UNIDADES\",\n      \"cantidad\": 6.0,\n      \"perecedero\": false,\n      \"tieneEstado\": true,\n      \"esNuevo\": false\n    }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Registrar donación (perecederos)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/donaciones", "host": ["{{base_url}}"], "path": ["donaciones"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"descripcion\": \"Donación de alimentos\",\n  \"donanteId\": {{donante_id}},\n  \"bienes\": [\n    {\n      \"descripcion\": \"Bolsas de arroz 1kg\",\n      \"subcategoriaDescripcion\": \"Arroz\",\n      \"categoriaDescripcion\": \"Alimentos\",\n      \"unidadMedida\": \"KILOGRAMOS\",\n      \"cantidad\": 50.0,\n      \"perecedero\": true,\n      \"fechaVencimiento\": \"2027-01-01\"\n    },\n    {\n      \"descripcion\": \"Cajas de fideos 500g\",\n      \"subcategoriaDescripcion\": \"Fideos\",\n      \"categoriaDescripcion\": \"Alimentos\",\n      \"unidadMedida\": \"KILOGRAMOS\",\n      \"cantidad\": 25.0,\n      \"perecedero\": true,\n      \"fechaVencimiento\": \"2027-06-01\"\n    }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Listar donaciones",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/donaciones", "host": ["{{base_url}}"], "path": ["donaciones"] }
+          }
+        },
+        {
+          "name": "Buscar donación por ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/donaciones/{{donacion_id}}", "host": ["{{base_url}}"], "path": ["donaciones", "{{donacion_id}}"] }
+          }
+        },
+        {
+          "name": "Eliminar donación",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/donaciones/{{donacion_id}}", "host": ["{{base_url}}"], "path": ["donaciones", "{{donacion_id}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Estados y Auditoría",
+      "item": [
+        {
+          "name": "1. ASIGNAR (En depósito → Asignación realizada)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/donaciones/{{donacion_id}}/estado", "host": ["{{base_url}}"], "path": ["donaciones", "{{donacion_id}}", "estado"] },
+            "body": { "mode": "raw", "raw": "{\n  \"accion\": \"ASIGNAR\"\n}" }
+          }
+        },
+        {
+          "name": "2. PLANIFICAR_RUTA (Asignación realizada → Lista para entregar)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/donaciones/{{donacion_id}}/estado", "host": ["{{base_url}}"], "path": ["donaciones", "{{donacion_id}}", "estado"] },
+            "body": { "mode": "raw", "raw": "{\n  \"accion\": \"PLANIFICAR_RUTA\"\n}" }
+          }
+        },
+        {
+          "name": "3. DESPACHAR (Lista para entregar → En traslado)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/donaciones/{{donacion_id}}/estado", "host": ["{{base_url}}"], "path": ["donaciones", "{{donacion_id}}", "estado"] },
+            "body": { "mode": "raw", "raw": "{\n  \"accion\": \"DESPACHAR\"\n}" }
+          }
+        },
+        {
+          "name": "4a. ENTREGAR (En traslado → Entregada)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/donaciones/{{donacion_id}}/estado", "host": ["{{base_url}}"], "path": ["donaciones", "{{donacion_id}}", "estado"] },
+            "body": { "mode": "raw", "raw": "{\n  \"accion\": \"ENTREGAR\"\n}" }
+          }
+        },
+        {
+          "name": "4b. FALLAR (En traslado → Entrega fallida)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/donaciones/{{donacion_id}}/estado", "host": ["{{base_url}}"], "path": ["donaciones", "{{donacion_id}}", "estado"] },
+            "body": { "mode": "raw", "raw": "{\n  \"accion\": \"FALLAR\",\n  \"justificacion\": \"Nadie abrió la puerta al tocar timbre\"\n}" }
+          }
+        },
+        {
+          "name": "5. ALMACENAR (Entrega fallida → En depósito)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/donaciones/{{donacion_id}}/estado", "host": ["{{base_url}}"], "path": ["donaciones", "{{donacion_id}}", "estado"] },
+            "body": { "mode": "raw", "raw": "{\n  \"accion\": \"ALMACENAR\"\n}" }
+          }
+        },
+        {
+          "name": "VENCER (admin)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/donaciones/{{donacion_id}}/estado", "host": ["{{base_url}}"], "path": ["donaciones", "{{donacion_id}}", "estado"] },
+            "body": { "mode": "raw", "raw": "{\n  \"accion\": \"VENCER\"\n}" }
+          }
+        },
+        {
+          "name": "Ver historial de auditoría",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/donaciones/{{donacion_id}}/auditoria", "host": ["{{base_url}}"], "path": ["donaciones", "{{donacion_id}}", "auditoria"] }
+          }
+        },
+        {
+          "name": "[ERROR 409] Transición inválida",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/donaciones/{{donacion_id}}/estado", "host": ["{{base_url}}"], "path": ["donaciones", "{{donacion_id}}", "estado"] },
+            "body": { "mode": "raw", "raw": "{\n  \"accion\": \"ENTREGAR\"\n}" }
+          }
+        },
+        {
+          "name": "[ERROR 400] Acción inexistente",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/donaciones/{{donacion_id}}/estado", "host": ["{{base_url}}"], "path": ["donaciones", "{{donacion_id}}", "estado"] },
+            "body": { "mode": "raw", "raw": "{\n  \"accion\": \"VOLAR\"\n}" }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.ddsi.donaciones.models.entities;
 
+@lombok.Getter
 public class Direccion {
     private String calle; // calle + número 
     private String ciudad;

@@ -12,10 +12,7 @@ import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Donante;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Genero;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.TipoDocumento;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.TipoPersona;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.matchmaking.EvaluacionMatch;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.matchmaking.GeneradorDeMatches;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.matchmaking.MatchmakingPrioridadSubatendidos;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.matchmaking.PosibleMatch;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.matchmaking.*;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.necesidades.Necesidad;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.necesidades.NecesidadRecurrente;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.necesidades.Periodo;
@@ -140,6 +137,15 @@ public class MatchmakingTest {
         listaDeBienes.add(bien1);
         MatchmakingPrioridadSubatendidos matchmakingPrioridadSubatendidos = new MatchmakingPrioridadSubatendidos(0.1,5);
         EvaluacionMatch unaEvaluacion = matchmakingPrioridadSubatendidos.evaluar(
+                new PosibleMatch(donacion1,necesidadRecurrente1)
+        );
+        System.out.println(unaEvaluacion);
+    }
+    @Test
+    void pruebaMatchmakingSemantico(){
+        listaDeBienes.add(bien1);
+        MatchmakingCompatibilidadSemantica matchmakingCompatibilidadSemantica = new MatchmakingCompatibilidadSemantica(0.5,0.3,0.2);
+        EvaluacionMatch unaEvaluacion = matchmakingCompatibilidadSemantica.evaluar(
                 new PosibleMatch(donacion1,necesidadRecurrente1)
         );
         System.out.println(unaEvaluacion);

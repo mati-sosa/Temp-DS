@@ -10,6 +10,7 @@ public class MatchmakingPrioridadSubatendidos implements EstrategiaMatchmaking {
         CantDonacionesTrimestre = unaCantDonacionesTrimestre;
     }
 
+    @Override
     public EvaluacionMatch evaluar(PosibleMatch unPosibleMatch){
         double score = 1 / (1 + factorDeSuavizado * CantDonacionesTrimestre);
 

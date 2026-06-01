@@ -8,7 +8,11 @@ public class NecesidadRecurrente extends Necesidad {
     private Double cantidadPorPeriodo;
     private Periodo periodo;
 
-    public NecesidadRecurrente(String descripcion, SubcategoriaBien subCategoria, Double cantidadRequerida, Double cantidadPorPeriodo, Periodo periodo) {
+    public NecesidadRecurrente(
+            String descripcion,
+            SubcategoriaBien subCategoria,
+            Double cantidadRequerida,
+            Double cantidadPorPeriodo, Periodo periodo) {
         super(descripcion, subCategoria, cantidadRequerida);
         this.cantidadPorPeriodo = cantidadPorPeriodo;
         this.periodo = periodo;

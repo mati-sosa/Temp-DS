@@ -2,13 +2,11 @@ package ar.edu.utn.frba.ddsi.donaciones.models.entities.estados_donaciones;
 
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donaciones.Donacion;
 
-public class EstadoEnDeposito implements EstadoDonacion {
-    public void asignarDestinatario(Donacion unaDonacion){
+public class EstadoVencida implements EstadoDonacion {
 
-    }
+    @Override
+    public void asignarDestinatario(Donacion unaDonacion) {
 
-    public void desecharPorVencimiento(Donacion unaDonacion){
-        unaDonacion.cambiarEstado(new EstadoVencida());
     }
 
     @Override
@@ -31,7 +29,10 @@ public class EstadoEnDeposito implements EstadoDonacion {
 
     }
 
+    @Override
+    public void desecharPorVencimiento(Donacion unaDonacion) {
 
+    }
 
     @Override
     public void almacenar(Donacion unaDonacion) {

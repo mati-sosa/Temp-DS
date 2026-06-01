@@ -21,12 +21,20 @@ public class Donacion {
     private EstadoDonacion estado;
     public List<EstadoDonacion> historialEstados;
 
-    public Donacion(SubcategoriaBien unaSubcategoriaBien, List<Bien> unosBienes, DonacionTotal unaDonacionDeOrigen) {
+    public Donacion(
+            SubcategoriaBien unaSubcategoriaBien,
+            List<Bien> unosBienes,
+            DonacionTotal unaDonacionDeOrigen
+    ) {
         subcategoriaBien = unaSubcategoriaBien;
         bienes = unosBienes;
         donacionDeOrigen = unaDonacionDeOrigen;
         // Entrega 2: Al crearse la donacion va directo al deposito
         estado = new EstadoEnDeposito();
+    }
+
+    public void cambiarEstado(EstadoDonacion nuevoEstado){
+        estado = nuevoEstado;
     }
 
     @Override

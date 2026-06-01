@@ -2,6 +2,7 @@ package ar.edu.utn.frba.ddsi.donaciones.models.entities.donaciones;
 
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.bienes.Bien;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Donante;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.estados_donaciones.EstadoDonacion;
 import lombok.Getter;
 
 import java.time.LocalDate;

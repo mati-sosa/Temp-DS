@@ -11,6 +11,7 @@ import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Donante;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Genero;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.TipoDocumento;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.TipoPersona;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -245,4 +246,9 @@ public class DonacionesTest {
         System.out.println(donacionTotal1);
     }
 
+    @Test
+    void altaDonacionEnDeposito(){
+
+
+    }
 }

@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.juridico;
+package ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes;
 
 import lombok.Getter;
 

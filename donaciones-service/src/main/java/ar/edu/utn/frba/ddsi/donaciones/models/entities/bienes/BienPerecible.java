@@ -8,7 +8,13 @@ import java.time.LocalDate;
 public class BienPerecible extends Bien {
     private LocalDate fechaDeVencimiento;
 
-    public BienPerecible(String descripcion, SubcategoriaBien subcategoria, Double cantidad, String foto, LocalDate fechaDeVencimiento) {
+    public BienPerecible(
+            String descripcion,
+            SubcategoriaBien subcategoria,
+            Double cantidad,
+            String foto,
+            LocalDate fechaDeVencimiento
+    ) {
         super(descripcion, subcategoria, cantidad, foto);
 
         if (fechaDeVencimiento == null) {
@@ -27,6 +33,6 @@ public class BienPerecible extends Bien {
                 getSubcategoria() + " " +
                 getCantidad()  + " " +
                 getFoto() + " " +
-                getFechaDeVencimiento();
+                getFechaDeVencimiento() + "\n";
     }
 }

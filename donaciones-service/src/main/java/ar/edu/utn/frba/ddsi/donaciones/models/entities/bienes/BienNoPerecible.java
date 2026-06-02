@@ -20,6 +20,6 @@ public class BienNoPerecible extends Bien {
         return getDescripcion() + " " +
                 getSubcategoria() + " " +
                 getCantidad() + " " +
-                getFoto();
+                getFoto() + "\n";
     }
 }

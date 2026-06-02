@@ -27,6 +27,6 @@ public class BienPerecible extends Bien {
                 getSubcategoria() + " " +
                 getCantidad()  + " " +
                 getFoto() + " " +
-                getFechaDeVencimiento();
+                getFechaDeVencimiento() + "\n";
     }
 }

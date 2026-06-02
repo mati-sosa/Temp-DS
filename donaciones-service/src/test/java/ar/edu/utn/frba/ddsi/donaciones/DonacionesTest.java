@@ -4,10 +4,13 @@ import ar.edu.utn.frba.ddsi.donaciones.models.entities.Direccion;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.bienes.*;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.MedioDeContacto;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.TipoMedioContacto;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.donaciones.Donacion;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.humano.DonanteHumano;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.humano.Genero;
-import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.humano.TipoDocumento;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.donaciones.Administrador;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.donaciones.Deposito;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.donaciones.DonacionTotal;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Donante;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Genero;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.TipoDocumento;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.TipoPersona;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -113,6 +116,17 @@ public class DonacionesTest {
         System.out.println(bienPerecible1.estaVencido());
     }
 
+    //-------------------- Alta Administrador --------------------//
+    Administrador unAdministrador = new Administrador(
+            "LaSudestada",
+            "001"
+    );
+
+    //-------------------- Alta Deposito --------------------//
+    Deposito unDeposito = new Deposito();
+
+
+
     //-------------------- TEST BIENES --------------------//
 
     @Test
@@ -164,13 +178,16 @@ public class DonacionesTest {
         // Set Up Donante
         mediosDeContacto.add(medioDeContacto1);
         mediosDeContacto.add(medioDeContacto2);
-        DonanteHumano homeroDonante = new DonanteHumano(
+        Donante homeroDonante = new Donante(
                 "Homero",
-                mediosDeContacto,
-                medioDeContacto1,
-                38,
                 "30.000.000",
                 TipoDocumento.DNI,
+                TipoPersona.FISICA,
+                LocalDate.of(1970, 5, 30),
+                mediosDeContacto,
+                medioDeContacto1,
+                new ArrayList<>(),
+                null,
                 Genero.MASCULINO,
                 new Direccion("Av. Siempreviva", "Springfield", "Oregon", "2026")
         );
@@ -188,7 +205,15 @@ public class DonacionesTest {
                 "Sillas de madera",
                 subCategoriaSilla,
                 6.0,
-                "fotoSillasDonar.jpg",
+                "fotoSillasMAderaDonar.jpg",
+                true,
+                false
+        ));
+        bienesADonarPorMudanza.add(new BienNoPerecible(
+                "Sillas de plastico",
+                subCategoriaSilla,
+                4.0,
+                "fotoSillasPlasticoDonar.jpg",
                 true,
                 false
         ));
@@ -208,17 +233,16 @@ public class DonacionesTest {
                 false
         ));
 
-        Donacion donacion1 = new Donacion(
+        DonacionTotal donacionTotal1 = new DonacionTotal(
+                LocalDate.now(),
                 "Donacion por mudanza",
                 bienesADonarPorMudanza,
-                homeroDonante
+                unAdministrador,
+                homeroDonante,
+                unDeposito
         );
-
-        System.out.println(donacion1);
-        // Con las donaciones realizadas esta funcion calcula 27 cosas:
-        // 1 mesa + 6 sillas + 10 jabones + 10kg de naranjas
-        // Habría que revisarla
-        System.out.println(donacion1.cantidadDeUnidadesTotales());
+        donacionTotal1.segmentarDonacion();
+        System.out.println(donacionTotal1);
     }
 
 }

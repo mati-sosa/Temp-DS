@@ -162,7 +162,6 @@ public class EntidadesBeneficiariasTest {
                 representantesEscuela1,
                 necesidadesExtraordinariasEscuelaPrimariaSrpingfield
         );
-
         entidadBeneficiariaEscuela1.registrarNecesidad(necesidadJuegosParque);
         System.out.println(entidadBeneficiariaEscuela1);
     }

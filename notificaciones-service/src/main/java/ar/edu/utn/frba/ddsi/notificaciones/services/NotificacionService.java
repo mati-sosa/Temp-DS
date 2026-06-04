@@ -7,10 +7,18 @@ import ar.edu.utn.frba.ddsi.notificaciones.services.notificadores.EmailNotificad
 import ar.edu.utn.frba.ddsi.notificaciones.services.notificadores.Notificador;
 import ar.edu.utn.frba.ddsi.notificaciones.services.notificadores.SmsNotificador;
 import ar.edu.utn.frba.ddsi.notificaciones.services.notificadores.WhatsappNotificador;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class NotificacionService {
+    @Autowired
+    private EmailNotificador emailNotificador;
+    @Autowired
+    private SmsNotificador smsNotificador;
+    @Autowired
+    private WhatsappNotificador whatsappNotificador;
+
     public void enviar(NotificacionRequest request){
         Notificador notificador;
         MedioDeContacto medioDeContacto = request.getMedioDeContacto();
@@ -21,13 +29,13 @@ public class NotificacionService {
 
         switch (tipo) {
             case EMAIL:
-                notificador = new EmailNotificador();
+                notificador = emailNotificador;
                 break;
             case SMS:
-                notificador = new SmsNotificador();
+                notificador = smsNotificador;
                 break;
             case WHATSAPP:
-                notificador = new WhatsappNotificador();
+                notificador = whatsappNotificador;
                 break;
             default:
                 throw new RuntimeException("Medio de contacto desconocido.");

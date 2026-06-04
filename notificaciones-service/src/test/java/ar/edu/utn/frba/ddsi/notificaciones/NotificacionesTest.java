@@ -22,6 +22,28 @@ public class NotificacionesTest {
     }
 
     @Test
+    void deberiaEnviarSMSCorrectamente() {
+        NotificacionRequest request = new NotificacionRequest();
+
+        MedioDeContacto medio = new MedioDeContacto(TipoMedioContacto.SMS, "+5491122536843");
+        request.setMedioDeContacto(medio);
+        request.setMensaje("HOLA SMS!");
+
+        assertDoesNotThrow(() -> service.enviar(request));
+    }
+
+    @Test
+    void deberiaEnviarWhatsappCorrectamente() {
+        NotificacionRequest request = new NotificacionRequest();
+
+        MedioDeContacto medio = new MedioDeContacto(TipoMedioContacto.SMS, "+5491122536843");
+        request.setMedioDeContacto(medio);
+        request.setMensaje("HOLA WHATSAPP!");
+
+        assertDoesNotThrow(() -> service.enviar(request));
+    }
+
+    @Test
     void deberiaFallarSiEmailEsInvalido() {
         NotificacionRequest request = new NotificacionRequest();
 

@@ -1,5 +1,8 @@
 package ar.edu.utn.frba.ddsi.notificaciones.services.notificadores;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class WhatsappNotificador implements Notificador{
     public void enviar(String destino, String mensaje){
         System.out.println("[WHATSAPP SERVICE] Enviando mensaje por Whatsapp a " + destino);

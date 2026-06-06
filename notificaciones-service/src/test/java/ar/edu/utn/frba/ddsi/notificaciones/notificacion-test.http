@@ -5,7 +5,7 @@ Content-Type: application/json
   "destinatario": "Ramiro",
   "medioDeContacto": {
     "tipoMedioContacto": "EMAIL",
-    "direccion": "ramiro@gmail.com"
+    "direccion": "rasilva@frba.utn.edu.ar"
   },
-  "mensaje": "Hola sistema"
+  "mensaje": "Probando 123"
 }

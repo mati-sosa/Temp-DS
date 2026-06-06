@@ -6,15 +6,19 @@ import ar.edu.utn.frba.ddsi.notificaciones.models.entities.contacto.TipoMedioCon
 import ar.edu.utn.frba.ddsi.notificaciones.services.NotificacionService;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 public class NotificacionesTest {
-    private final NotificacionService service = new NotificacionService();
+    @Autowired
+    private NotificacionService service;
 
     @Test
     void deberiaEnviarEmailCorrectamente() {
         NotificacionRequest request = new NotificacionRequest();
 
-        MedioDeContacto medio = new MedioDeContacto(TipoMedioContacto.EMAIL, "test@email.com");
+        MedioDeContacto medio = new MedioDeContacto(TipoMedioContacto.EMAIL, "rasilva@frba.utn.edu.ar");
         request.setMedioDeContacto(medio);
         request.setMensaje("HOLA EMAIL!");
 
@@ -24,8 +28,7 @@ public class NotificacionesTest {
     @Test
     void deberiaEnviarSMSCorrectamente() {
         NotificacionRequest request = new NotificacionRequest();
-
-        MedioDeContacto medio = new MedioDeContacto(TipoMedioContacto.SMS, "+5491122536843");
+        MedioDeContacto medio = new MedioDeContacto(TipoMedioContacto.SMS, "+541122536843");
         request.setMedioDeContacto(medio);
         request.setMensaje("HOLA SMS!");
 

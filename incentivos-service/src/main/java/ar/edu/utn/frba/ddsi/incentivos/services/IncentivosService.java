@@ -21,12 +21,14 @@ public class IncentivosService {
   private final PerfilDonanteRepository repositorio;
   private final CatalogoMisionesFactory catalogo;
   private final DifusorDeInsignias difusor;
+  private final NotificadorDonante notificadorDonante;
 
   public IncentivosService(PerfilDonanteRepository repositorio, CatalogoMisionesFactory catalogo,
-                           DifusorDeInsignias difusor) {
+                           DifusorDeInsignias difusor, NotificadorDonante notificadorDonante) {
     this.repositorio = repositorio;
     this.catalogo = catalogo;
     this.difusor = difusor;
+    this.notificadorDonante = notificadorDonante;
   }
 
   public PerfilDonante registrarDonante(Long donanteId, String user) {
@@ -49,7 +51,10 @@ public class IncentivosService {
       Mision siguiente = catalogo.siguienteDe(completada);
       Insignia insignia = perfil.completarMisionActual(siguiente);
 
-      eventos.add(new MisionCumplida(donanteId, perfil.getUser(), completada.getNombre()));
+      MisionCumplida misionCumplida = new MisionCumplida(donanteId, perfil.getUser(), completada.getNombre());
+      eventos.add(misionCumplida);
+      notificadorDonante.notificarDonante(donanteId,
+          "¡Completaste la misión \"" + completada.getNombre() + "\"!");
 
       InsigniaObtenida eventoInsignia = new InsigniaObtenida(donanteId, perfil.getUser(),
           insignia.getNombre(), insignia.getCategoria(),
@@ -59,7 +64,10 @@ public class IncentivosService {
 
       if (siguiente != null && siguiente.getCategoria() != completada.getCategoria()) {
         perfil.subirCategoria(siguiente.getCategoria());
-        eventos.add(new CambioCategoria(donanteId, perfil.getUser(), perfil.getCategoria()));
+        CambioCategoria cambioCategoria = new CambioCategoria(donanteId, perfil.getUser(), perfil.getCategoria());
+        eventos.add(cambioCategoria);
+        notificadorDonante.notificarDonante(donanteId,
+            "¡Subiste a la categoría " + perfil.getCategoria() + "!");
       }
     }
     repositorio.guardar(perfil);

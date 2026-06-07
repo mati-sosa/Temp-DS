@@ -26,8 +26,7 @@ class IncentivosDominioTest {
   @BeforeEach
   void setUp() {
     // Difusor no-op: este test verifica el dominio, no la difusión a n8n.
-    service = new IncentivosService(new PerfilDonanteRepository(), new CatalogoMisionesFactory(),
-        insignia -> { });
+    service = new IncentivosService(new PerfilDonanteRepository(), new CatalogoMisionesFactory(), insignia -> { }, (id, msg) -> { });
     service.registrarDonante(DONANTE, "ana_donante");
   }
 

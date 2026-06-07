@@ -23,7 +23,7 @@ class RankingServiceTest {
   @BeforeEach
   void setUp() {
     perfilRepository = new PerfilDonanteRepository();
-    incentivos = new IncentivosService(perfilRepository, new CatalogoMisionesFactory(), insignia -> { });
+    incentivos = new IncentivosService(perfilRepository, new CatalogoMisionesFactory(), insignia -> { }, (id, msg) -> { });
     ranking = new RankingService(perfilRepository, new RankingMensualRepository());
   }
 

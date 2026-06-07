@@ -1,20 +1,16 @@
 package ar.edu.utn.frba.ddsi.donaciones.models.entities.matchmaking;
 
 public class MatchmakingPrioridadSubatendidos implements EstrategiaMatchmaking {
-    private double factorDeSuavizado;
-    /** ESTO HAY QUE CAMBIARLO, LA CANTIDAD DE DONACIONES LA TENGO QUE OBTENER DESDE UNPOSIBLEMATCH **/
-    private double CantDonacionesTrimestre;
+    private final double factorDeSuavizado;
 
-    public MatchmakingPrioridadSubatendidos(double unFactorDeSuavizado, double unaCantDonacionesTrimestre){
+    public MatchmakingPrioridadSubatendidos(double unFactorDeSuavizado) {
         factorDeSuavizado = unFactorDeSuavizado;
-        CantDonacionesTrimestre = unaCantDonacionesTrimestre;
     }
 
     @Override
-    public EvaluacionMatch evaluar(PosibleMatch unPosibleMatch){
-        double score = 1 / (1 + factorDeSuavizado * CantDonacionesTrimestre);
-
-        EvaluacionMatch unaEvaluacionMatch = new EvaluacionMatch(unPosibleMatch,score);
-        return unaEvaluacionMatch;
+    public EvaluacionMatch evaluar(PosibleMatch unPosibleMatch) {
+        int cantDonacionesTrimestre = unPosibleMatch.getEntidadBeneficiaria().getDonacionesRecibidasEnTrimestre();
+        double score = 1.0 / (1 + factorDeSuavizado * cantDonacionesTrimestre);
+        return new EvaluacionMatch(unPosibleMatch, score);
     }
 }

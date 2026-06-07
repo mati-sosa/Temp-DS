@@ -6,17 +6,27 @@ import ar.edu.utn.frba.ddsi.donaciones.models.entities.necesidades.Necesidad;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.MedioDeContacto;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.contacto.TipoMedioContacto;
 
+import lombok.Getter;
+import lombok.Setter;
 import java.util.List;
 import java.util.ArrayList;
 
 
 public class EntidadBeneficiaria {
+    @Getter @Setter
+    private Long id;
+    @Getter
     private TipoEntidadBeneficiaria tipo;
+    @Getter
     private String razonSocial;
+    @Getter
     private Direccion direccion;
+    @Getter
     private MedioDeContacto telefono;
+    @Getter
     private List<Representante> representantes;
     private List<Necesidad> necesidades = null;
+    private int donacionesRecibidasEnTrimestre = 0;
 
     public EntidadBeneficiaria(TipoEntidadBeneficiaria tipo, String razonSocial, Direccion direccion, MedioDeContacto telefono, List<Representante> representantes, List<Necesidad> necesidades) {
         if (tipo == null) {
@@ -42,6 +52,12 @@ public class EntidadBeneficiaria {
         this.representantes = representantes;
         this.necesidades = necesidades;
     }
+
+    public List<Necesidad> getNecesidades() { return necesidades; }
+
+    public int getDonacionesRecibidasEnTrimestre() { return donacionesRecibidasEnTrimestre; }
+
+    public void registrarDonacionRecibida() { donacionesRecibidasEnTrimestre++; }
 
     public void registrarNecesidad(Necesidad nuevaNecesidad) {
         if (nuevaNecesidad == null) {

@@ -66,4 +66,9 @@ public class DonacionController {
                 .map(donacionMapper::toAuditoriaDTO)
                 .toList();
     }
+
+    @GetMapping("/donante/{donanteId}/organizaciones-ayudadas")
+    public long organizacionesAyudadas(@PathVariable Long donanteId) {
+        return donacionService.contarOrganizacionesAyudadas(donanteId);
+    }
 }

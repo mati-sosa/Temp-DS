@@ -30,7 +30,7 @@ class DifusionInsigniasTest {
   void seDifundeUnaInsigniaAlCompletarUnaMision() {
     DifusorFake difusor = new DifusorFake();
     IncentivosService service =
-        new IncentivosService(new PerfilDonanteRepository(), new CatalogoMisionesFactory(), difusor);
+        new IncentivosService(new PerfilDonanteRepository(), new CatalogoMisionesFactory(), difusor, (id, msg) -> { });
     service.registrarDonante(1L, "ana");
 
     service.registrarDonacion(1L, new EventoDonacion(LocalDate.parse("2026-05-10"), "Alimentos", 5, true));

@@ -19,7 +19,7 @@ class AnaliticaServiceTest {
   void elDashboardConsolidaDonacionesEIncentivos() {
     PerfilDonanteRepository perfilRepository = new PerfilDonanteRepository();
     IncentivosService incentivos =
-        new IncentivosService(perfilRepository, new CatalogoMisionesFactory(), insignia -> { });
+        new IncentivosService(perfilRepository, new CatalogoMisionesFactory(), insignia -> { }, (id, msg) -> { });
     RankingService ranking = new RankingService(perfilRepository, new RankingMensualRepository());
     // Stub del puerto de métricas de Donaciones: 3 organizaciones ayudadas.
     AnaliticaService analitica = new AnaliticaService(incentivos, ranking, donanteId -> 3);

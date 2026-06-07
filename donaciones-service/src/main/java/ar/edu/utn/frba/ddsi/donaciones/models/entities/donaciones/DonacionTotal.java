@@ -16,6 +16,7 @@ public class DonacionTotal {
     private String descripcion;
     public List<Bien> bienes;
     private Administrador administrador;
+    @Getter
     private Donante donante;
     private Deposito deposito;
 

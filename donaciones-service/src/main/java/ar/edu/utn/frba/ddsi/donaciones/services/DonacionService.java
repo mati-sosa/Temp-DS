@@ -58,4 +58,16 @@ public class DonacionService {
     public List<AuditoriaTransicion> obtenerHistorial(Long id) {
         return buscarPorId(id).getHistorialEstados();
     }
+
+    public long contarOrganizacionesAyudadas(Long donanteId) {
+        return donacionRepository.buscarTodas().stream()
+                .filter(d -> d.getEntidadBeneficiariaId() != null)
+                .filter(d -> {
+                    var donante = d.getDonacionDeOrigen().getDonante();
+                    return donante != null && donanteId.equals(donante.getId());
+                })
+                .map(Donacion::getEntidadBeneficiariaId)
+                .distinct()
+                .count();
+    }
 }

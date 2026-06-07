@@ -15,6 +15,8 @@ import java.util.List;
 public class Donacion {
     @Setter
     private Long id;
+    @Setter
+    private Long entidadBeneficiariaId;
     private SubcategoriaBien subcategoriaBien;
     private List<Bien> bienes;
     private DonacionTotal donacionDeOrigen;

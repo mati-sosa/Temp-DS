@@ -1,5 +1,8 @@
 package ar.edu.utn.frba.ddsi.donaciones.models.entities.matchmaking;
 
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.bienes.Bien;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.necesidades.NecesidadRecurrente;
+
 import static ar.edu.utn.frba.ddsi.donaciones.models.entities.matchmaking.LevenshteinDistance.computeLevenshteinDistance;
 
 public class MatchmakingCompatibilidadSemantica implements EstrategiaMatchmaking{
@@ -47,21 +50,16 @@ public class MatchmakingCompatibilidadSemantica implements EstrategiaMatchmaking
         ));
     }
 
-    private double coberturaVolumen(PosibleMatch unPosibleMatch){
-        return unPosibleMatch.
-                getDonacion().
-                getBienes().
-                stream().
-                count() / unPosibleMatch.
-                getNecesidad().
-                getCantidadRequerida();
+    private double coberturaVolumen(PosibleMatch unPosibleMatch) {
+        double cantDonada = unPosibleMatch.getDonacion().getBienes().stream()
+                .mapToDouble(Bien::getCantidad).sum();
+        double cantRequerida = unPosibleMatch.getNecesidad().getCantidadRequerida();
+        double r = cantDonada / cantRequerida;
+        return r <= 1 ? r : 1.0 / r;
     }
 
-    private double tipoNecesidad(PosibleMatch unPosibleMatch){
-        if (unPosibleMatch.getClass().toString() == "NecesidadRecurrente")
-            return 0.5;
-        else
-            return 1;
+    private double tipoNecesidad(PosibleMatch unPosibleMatch) {
+        return unPosibleMatch.getNecesidad() instanceof NecesidadRecurrente ? 0.5 : 1.0;
     }
 
 }

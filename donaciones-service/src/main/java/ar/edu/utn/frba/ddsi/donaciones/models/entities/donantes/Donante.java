@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Setter;
 
 @Getter
 public class Donante {
@@ -25,6 +26,8 @@ public class Donante {
     private Rubro rubro;
     private Genero genero;
     private Direccion direccion;
+    @Getter @Setter
+    private LocalDate ultimaInteraccion = LocalDate.now();
 
 
     /********** CONSTRUCTOR **********/

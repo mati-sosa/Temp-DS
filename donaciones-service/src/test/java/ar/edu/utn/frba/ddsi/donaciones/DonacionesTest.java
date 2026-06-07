@@ -95,7 +95,7 @@ public class DonacionesTest {
     private static final List<MedioDeContacto> mediosDeContacto = new ArrayList<>();
 
     MedioDeContacto medioDeContacto1 = new MedioDeContacto(
-            TipoMedioContacto.TELEFONO,
+            TipoMedioContacto.SMS,
             "011 1234-5678"
     );
     MedioDeContacto medioDeContacto2 = new MedioDeContacto(

@@ -1,0 +1,38 @@
+### Incentivos - pruebas rápidas (IntelliJ HTTP Client / VS Code REST Client)
+### El servicio corre en el puerto 8083 (ver application.properties).
+
+### 1) Registrar un donante (arranca en COLABORADOR con la primera misión)
+POST http://localhost:8083/incentivos/donantes
+Content-Type: application/json
+
+{ "donanteId": 1, "user": "ana_donante" }
+
+### 2) Registrar una donación (mayo, Alimentos) -> avanza la Racha
+POST http://localhost:8083/incentivos/donantes/1/donaciones
+Content-Type: application/json
+
+{ "fecha": "2026-05-10", "categoria": "Alimentos", "cantidadBienes": 5, "exitosa": true }
+
+### 3) Registrar otra donación (junio, Ropa) -> completa Racha x2 y Completitud x2, sube a SOSTENEDOR
+POST http://localhost:8083/incentivos/donantes/1/donaciones
+Content-Type: application/json
+
+{ "fecha": "2026-06-10", "categoria": "Ropa", "cantidadBienes": 5, "exitosa": true }
+
+### 4) Ver el perfil (categoría, misión actual, progreso, totales)
+GET http://localhost:8083/incentivos/donantes/1/perfil
+
+### 5) Ver misiones (actual + completadas)
+GET http://localhost:8083/incentivos/donantes/1/misiones
+
+### 6) Ver insignias obtenidas
+GET http://localhost:8083/incentivos/donantes/1/insignias
+
+### 7) Ver el dashboard (analítica: totales, evolución por mes, comparación mensual, ranking)
+GET http://localhost:8083/incentivos/donantes/1/dashboard
+
+### 8) Generar el ranking del mes (a demanda) - usar el mes actual
+POST http://localhost:8083/incentivos/ranking/2026/6
+
+### 9) Obtener el ranking generado
+GET http://localhost:8083/incentivos/ranking/2026/6

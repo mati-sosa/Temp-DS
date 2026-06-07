@@ -28,7 +28,7 @@ public class EntidadBeneficiaria {
         if (direccion == null) {
             throw new IllegalArgumentException("¡La entidad debe tener una dirección asociada!");
         }
-        if (telefono == null || telefono.getTipoMedioContacto() != TipoMedioContacto.TELEFONO) {
+        if (telefono == null || telefono.getTipoMedioContacto() != TipoMedioContacto.SMS) {
             throw new IllegalArgumentException("¡El medio de contacto debe ser un teléfono válido!");
         }
         if (representantes == null || representantes.isEmpty()) {

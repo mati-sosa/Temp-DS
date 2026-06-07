@@ -77,7 +77,7 @@ public class EntidadesBeneficiariasTest {
                         "97403"
                 ),
                 new MedioDeContacto(
-                        TipoMedioContacto.TELEFONO,
+                        TipoMedioContacto.SMS,
                         "011 1231-1231"
                 ),
                 representantesEscuela1,
@@ -102,7 +102,7 @@ public class EntidadesBeneficiariasTest {
                         "97403"
                 ),
                 new MedioDeContacto(
-                        TipoMedioContacto.TELEFONO,
+                        TipoMedioContacto.SMS,
                         "011 1231-1231"
                 ),
                 representantesEscuela1,
@@ -129,7 +129,7 @@ public class EntidadesBeneficiariasTest {
                         "97403"
                 ),
                 new MedioDeContacto(
-                        TipoMedioContacto.TELEFONO,
+                        TipoMedioContacto.SMS,
                         "011 1231-1231"
                 ),
                 representantesEscuela1,
@@ -156,7 +156,7 @@ public class EntidadesBeneficiariasTest {
                         "97403"
                 ),
                 new MedioDeContacto(
-                        TipoMedioContacto.TELEFONO,
+                        TipoMedioContacto.SMS,
                         "011 1231-1231"
                 ),
                 representantesEscuela1,

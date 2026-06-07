@@ -26,7 +26,7 @@ import java.util.List;
 
 public class MatchmakingTest {
     private static final List<MedioDeContacto> mediosDeContacto = new ArrayList<>();
-    static MedioDeContacto medioDeContacto1 = new MedioDeContacto(TipoMedioContacto.TELEFONO,"011 1234-5678");
+    static MedioDeContacto medioDeContacto1 = new MedioDeContacto(TipoMedioContacto.SMS,"011 1234-5678");
     static MedioDeContacto medioDeContacto2 = new MedioDeContacto(TipoMedioContacto.EMAIL, "homersimpson@outlook.com");
 
     ArrayList<Donacion> donaciones = new ArrayList<>();

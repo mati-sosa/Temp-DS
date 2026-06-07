@@ -15,9 +15,9 @@ import java.util.List;
 public class DonantesTests {
 
     private static final List<MedioDeContacto> mediosDeContacto = new ArrayList<>();
-    MedioDeContacto medioDeContacto1 = new MedioDeContacto(TipoMedioContacto.TELEFONO,"011 1234-5678");
+    MedioDeContacto medioDeContacto1 = new MedioDeContacto(TipoMedioContacto.SMS,"011 1234-5678");
     MedioDeContacto medioDeContacto2 = new MedioDeContacto(TipoMedioContacto.EMAIL, "homersimpson@outlook.com");
-    MedioDeContacto medioDeContacto3 = new MedioDeContacto(TipoMedioContacto.TELEFONO, "011 1234-1234");
+    MedioDeContacto medioDeContacto3 = new MedioDeContacto(TipoMedioContacto.SMS, "011 1234-1234");
 
     @Test
     void altaDonanteHumano(){

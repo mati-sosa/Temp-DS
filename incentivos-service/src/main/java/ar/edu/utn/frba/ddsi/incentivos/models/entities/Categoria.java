@@ -1,9 +1,5 @@
 package ar.edu.utn.frba.ddsi.incentivos.models.entities;
 
-/**
- * Categorías de donante. Son secuenciales: al completar todas las misiones de una,
- * se asciende a la siguiente.
- */
 public enum Categoria {
   COLABORADOR(1),
   SOSTENEDOR(2),
@@ -19,15 +15,16 @@ public enum Categoria {
     return orden;
   }
 
+  // Se define que la categoría máxima es la de mayor orden
   public boolean esMaxima() {
-    return this == TRANSFORMADOR;
+    return ordinal() == values().length - 1;
   }
 
+  // Devuelve la siguiente categoría en orden, o la misma si ya es la máxima
   public Categoria siguiente() {
-    return switch (this) {
-      case COLABORADOR -> SOSTENEDOR;
-      case SOSTENEDOR -> TRANSFORMADOR;
-      case TRANSFORMADOR -> TRANSFORMADOR;
-    };
+    if (esMaxima()) {
+      return this;
+    }
+    return values()[ordinal() + 1];
   }
 }

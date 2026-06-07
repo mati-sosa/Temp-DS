@@ -1,8 +1,8 @@
 package ar.edu.utn.frba.ddsi.incentivos.services;
 
 import ar.edu.utn.frba.ddsi.incentivos.models.entities.PerfilDonante;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.PuestoRanking;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.RankingMensual;
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.ranking.PuestoRanking;
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.ranking.RankingMensual;
 import ar.edu.utn.frba.ddsi.incentivos.models.repositories.PerfilDonanteRepository;
 import ar.edu.utn.frba.ddsi.incentivos.models.repositories.RankingMensualRepository;
 import java.time.YearMonth;

@@ -1,10 +1,13 @@
-package ar.edu.utn.frba.ddsi.incentivos.models.entities;
+package ar.edu.utn.frba.ddsi.incentivos.models.entities.misiones;
 
 import java.util.List;
 
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.Categoria;
+import ar.edu.utn.frba.ddsi.incentivos.models.eventos.EventoDonacion;
+
 /**
  * Donaciones Exitosas: lograr X donaciones recibidas exitosamente por una entidad beneficiaria.
- * Progreso = cantidad de donaciones marcadas como exitosas.
+ * Progreso: cantidad de donaciones marcadas como exitosas.
  */
 public class MisionDonacionesExitosas extends Mision {
 

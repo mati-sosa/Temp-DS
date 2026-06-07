@@ -1,10 +1,13 @@
-package ar.edu.utn.frba.ddsi.incentivos.models.entities;
+package ar.edu.utn.frba.ddsi.incentivos.models.entities.misiones;
 
 import java.util.List;
 
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.Categoria;
+import ar.edu.utn.frba.ddsi.incentivos.models.eventos.EventoDonacion;
+
 /**
  * Completitud: realizar donaciones de X categorías distintas.
- * Progreso = cantidad de categorías distintas donadas.
+ * Progreso: cantidad de categorías distintas donadas.
  */
 public class MisionCompletitud extends Mision {
 

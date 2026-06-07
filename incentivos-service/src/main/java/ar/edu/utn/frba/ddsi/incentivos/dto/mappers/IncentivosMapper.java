@@ -6,13 +6,13 @@ import ar.edu.utn.frba.ddsi.incentivos.dto.MisionesResponse;
 import ar.edu.utn.frba.ddsi.incentivos.dto.PerfilResponse;
 import ar.edu.utn.frba.ddsi.incentivos.dto.PuestoResponse;
 import ar.edu.utn.frba.ddsi.incentivos.dto.RankingResponse;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.EstadoMision;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.EventoDonacion;
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.misiones.EstadoMision;
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.misiones.MisionEnProgreso;
+import ar.edu.utn.frba.ddsi.incentivos.models.eventos.EventoDonacion;
 import ar.edu.utn.frba.ddsi.incentivos.models.entities.Insignia;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.MisionEnProgreso;
 import ar.edu.utn.frba.ddsi.incentivos.models.entities.PerfilDonante;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.PuestoRanking;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.RankingMensual;
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.ranking.PuestoRanking;
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.ranking.RankingMensual;
 import java.util.List;
 import org.springframework.stereotype.Component;
 

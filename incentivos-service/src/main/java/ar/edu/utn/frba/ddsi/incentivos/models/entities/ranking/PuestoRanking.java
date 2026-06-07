@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.ddsi.incentivos.models.entities;
+package ar.edu.utn.frba.ddsi.incentivos.models.entities.ranking;
 
 import lombok.Getter;
 
@@ -10,6 +10,7 @@ public class PuestoRanking {
   private final String donanteUser;
   private final int misionesCompletadas;
 
+  // TODO: validaciones de campos
   public PuestoRanking(int posicion, Long donanteId, String donanteUser, int misionesCompletadas) {
     this.posicion = posicion;
     this.donanteId = donanteId;

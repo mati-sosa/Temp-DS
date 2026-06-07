@@ -1,11 +1,12 @@
 package ar.edu.utn.frba.ddsi.incentivos.models.factories;
 
 import ar.edu.utn.frba.ddsi.incentivos.models.entities.Categoria;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.Mision;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.MisionCompletitud;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.MisionDonacionesExitosas;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.MisionHabilDonador;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.MisionRacha;
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.misiones.Mision;
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.misiones.MisionCompletitud;
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.misiones.MisionDonacionesExitosas;
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.misiones.MisionHabilDonador;
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.misiones.MisionRacha;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;

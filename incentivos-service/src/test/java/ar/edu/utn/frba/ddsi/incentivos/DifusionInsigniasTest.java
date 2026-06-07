@@ -3,7 +3,7 @@ package ar.edu.utn.frba.ddsi.incentivos;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.EventoDonacion;
+import ar.edu.utn.frba.ddsi.incentivos.models.eventos.EventoDonacion;
 import ar.edu.utn.frba.ddsi.incentivos.models.eventos.InsigniaObtenida;
 import ar.edu.utn.frba.ddsi.incentivos.models.factories.CatalogoMisionesFactory;
 import ar.edu.utn.frba.ddsi.incentivos.models.repositories.PerfilDonanteRepository;

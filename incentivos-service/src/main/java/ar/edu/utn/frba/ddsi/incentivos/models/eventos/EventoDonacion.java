@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.ddsi.incentivos.models.entities;
+package ar.edu.utn.frba.ddsi.incentivos.models.eventos;
 
 import java.time.LocalDate;
 import lombok.Getter;
@@ -15,6 +15,7 @@ public class EventoDonacion {
   private final int cantidadBienes;
   private final boolean exitosa;
 
+  // TODO: validaciones de campos
   public EventoDonacion(LocalDate fecha, String categoria, int cantidadBienes, boolean exitosa) {
     this.fecha = fecha;
     this.categoria = categoria;

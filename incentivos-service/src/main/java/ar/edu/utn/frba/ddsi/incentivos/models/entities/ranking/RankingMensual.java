@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.ddsi.incentivos.models.entities;
+package ar.edu.utn.frba.ddsi.incentivos.models.entities.ranking;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,6 +12,7 @@ public class RankingMensual {
   private final List<PuestoRanking> puestos;
   private final LocalDate fechaPublicacion;
 
+  // TODO: validaciones de campos
   public RankingMensual(int anio, int mes, List<PuestoRanking> puestos) {
     this.anio = anio;
     this.mes = mes;

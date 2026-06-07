@@ -1,9 +1,9 @@
 package ar.edu.utn.frba.ddsi.incentivos.services;
 
 import ar.edu.utn.frba.ddsi.incentivos.dto.DashboardResponse;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.EventoDonacion;
+import ar.edu.utn.frba.ddsi.incentivos.models.eventos.EventoDonacion;
 import ar.edu.utn.frba.ddsi.incentivos.models.entities.PerfilDonante;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.PuestoRanking;
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.ranking.PuestoRanking;
 import ar.edu.utn.frba.ddsi.incentivos.services.analitica.MetricasDonacionesPort;
 import java.time.YearMonth;
 import java.util.List;

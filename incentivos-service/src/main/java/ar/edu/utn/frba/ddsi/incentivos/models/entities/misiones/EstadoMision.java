@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.ddsi.incentivos.models.entities;
+package ar.edu.utn.frba.ddsi.incentivos.models.entities.misiones;
 
 public enum EstadoMision {
   BLOQUEADA,

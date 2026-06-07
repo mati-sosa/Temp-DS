@@ -2,8 +2,8 @@ package ar.edu.utn.frba.ddsi.incentivos;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.EventoDonacion;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.RankingMensual;
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.ranking.RankingMensual;
+import ar.edu.utn.frba.ddsi.incentivos.models.eventos.EventoDonacion;
 import ar.edu.utn.frba.ddsi.incentivos.models.factories.CatalogoMisionesFactory;
 import ar.edu.utn.frba.ddsi.incentivos.models.repositories.PerfilDonanteRepository;
 import ar.edu.utn.frba.ddsi.incentivos.models.repositories.RankingMensualRepository;

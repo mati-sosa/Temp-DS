@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import ar.edu.utn.frba.ddsi.incentivos.models.entities.Categoria;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.EventoDonacion;
 import ar.edu.utn.frba.ddsi.incentivos.models.entities.PerfilDonante;
+import ar.edu.utn.frba.ddsi.incentivos.models.eventos.EventoDonacion;
 import ar.edu.utn.frba.ddsi.incentivos.models.eventos.EventoIncentivos;
 import ar.edu.utn.frba.ddsi.incentivos.models.eventos.InsigniaObtenida;
 import ar.edu.utn.frba.ddsi.incentivos.models.factories.CatalogoMisionesFactory;

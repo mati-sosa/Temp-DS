@@ -1,7 +1,9 @@
-package ar.edu.utn.frba.ddsi.incentivos.models.entities;
+package ar.edu.utn.frba.ddsi.incentivos.models.entities.misiones;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import ar.edu.utn.frba.ddsi.incentivos.models.eventos.EventoDonacion;
 import lombok.Getter;
 
 /**

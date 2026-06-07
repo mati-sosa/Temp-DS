@@ -3,6 +3,10 @@ package ar.edu.utn.frba.ddsi.incentivos.models.entities;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
+
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.misiones.Mision;
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.misiones.MisionEnProgreso;
+import ar.edu.utn.frba.ddsi.incentivos.models.eventos.EventoDonacion;
 import lombok.Getter;
 
 /**
@@ -20,6 +24,7 @@ public class PerfilDonante {
   private final List<Insignia> insignias;
   private MisionEnProgreso misionActual;
 
+  // TODO: validaciones de campos
   public PerfilDonante(Long donanteId, String user, Mision primeraMision) {
     this.donanteId = donanteId;
     this.user = user;
@@ -44,12 +49,16 @@ public class PerfilDonante {
    */
   public Insignia completarMisionActual(Mision siguiente) {
     misionActual.completar();
+
+    // TODO: pensar si la insignia debe pertenecer a la misión completada o al perfil del donante
     Insignia insignia = new Insignia(
         "Insignia: " + misionActual.getMision().getNombre(),
         misionActual.getMision().getCategoria());
     insignias.add(insignia);
+
     misionesCompletadas.add(misionActual);
     misionActual = (siguiente == null) ? null : new MisionEnProgreso(siguiente);
+
     return insignia;
   }
 
@@ -60,6 +69,7 @@ public class PerfilDonante {
   /** Cantidad de misiones completadas dentro de un período (año/mes). Lo usa el ranking de P5. */
   public int misionesCompletadasEn(int anio, int mes) {
     YearMonth periodo = YearMonth.of(anio, mes);
+
     return (int) misionesCompletadas.stream()
         .filter(m -> m.getFechaCompletada() != null
             && YearMonth.from(m.getFechaCompletada()).equals(periodo))

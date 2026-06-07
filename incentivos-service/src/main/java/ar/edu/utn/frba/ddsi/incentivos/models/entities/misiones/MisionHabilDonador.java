@@ -1,10 +1,13 @@
-package ar.edu.utn.frba.ddsi.incentivos.models.entities;
+package ar.edu.utn.frba.ddsi.incentivos.models.entities.misiones;
 
 import java.util.List;
 
+import ar.edu.utn.frba.ddsi.incentivos.models.entities.Categoria;
+import ar.edu.utn.frba.ddsi.incentivos.models.eventos.EventoDonacion;
+
 /**
  * Hábil Donador: realizar una donación que supere X cantidad de bienes.
- * Progreso = la mayor cantidad de bienes donada en una sola donación.
+ * Progreso: la mayor cantidad de bienes donada en una sola donación.
  */
 public class MisionHabilDonador extends Mision {
 

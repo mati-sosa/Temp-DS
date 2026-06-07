@@ -7,7 +7,7 @@ import ar.edu.utn.frba.ddsi.incentivos.dto.MisionesResponse;
 import ar.edu.utn.frba.ddsi.incentivos.dto.PerfilResponse;
 import ar.edu.utn.frba.ddsi.incentivos.dto.RegistrarDonanteRequest;
 import ar.edu.utn.frba.ddsi.incentivos.dto.mappers.IncentivosMapper;
-import ar.edu.utn.frba.ddsi.incentivos.models.entities.EventoDonacion;
+import ar.edu.utn.frba.ddsi.incentivos.models.eventos.EventoDonacion;
 import ar.edu.utn.frba.ddsi.incentivos.services.AnaliticaService;
 import ar.edu.utn.frba.ddsi.incentivos.services.IncentivosService;
 import java.util.List;

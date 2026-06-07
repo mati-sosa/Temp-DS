@@ -19,6 +19,7 @@ public class DonacionTotal {
     private Donante donante;
     private Deposito deposito;
 
+    @Getter
     List<Donacion> donacionesSegmentadas = new ArrayList<>();
 
     /********** CONSTRUCTOR **********/

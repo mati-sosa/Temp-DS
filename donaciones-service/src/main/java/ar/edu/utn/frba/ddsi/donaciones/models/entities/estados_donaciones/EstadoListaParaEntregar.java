@@ -2,14 +2,14 @@ package ar.edu.utn.frba.ddsi.donaciones.models.entities.estados_donaciones;
 
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donaciones.Donacion;
 
-public class EstadoEnDeposito implements EstadoDonacion {
+public class EstadoListaParaEntregar implements EstadoDonacion {
 
     @Override
-    public String nombre() { return "En depósito"; }
+    public String nombre() { return "Lista para entregar"; }
 
     @Override
-    public void asignarDestinatario(Donacion donacion) {
-        donacion.cambiarEstado(new EstadoAsignacionRealizada(), null);
+    public void despachar(Donacion donacion) {
+        donacion.cambiarEstado(new EstadoEnTraslado(), null);
     }
 
     @Override

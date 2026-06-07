@@ -52,11 +52,25 @@ public class EntidadBeneficiariaController {
         service.eliminar(id);
     }
 
+    @GetMapping("/{id}/necesidades")
+    public List<NecesidadResponseDTO> listarNecesidades(@PathVariable Long id) {
+        return service.listarNecesidades(id).stream()
+                .map(mapper::necesidadToResponseDTO)
+                .toList();
+    }
+
     @PostMapping("/{id}/necesidades")
     @ResponseStatus(HttpStatus.CREATED)
     public EntidadBeneficiariaResponseDTO agregarNecesidad(@PathVariable Long id,
                                                            @Valid @RequestBody NecesidadRequestDTO dto) {
         return mapper.toResponseDTO(service.agregarNecesidad(id, mapper.necesidadToEntity(dto)));
+    }
+
+    @PutMapping("/{id}/necesidades/{indice}")
+    public EntidadBeneficiariaResponseDTO actualizarNecesidad(@PathVariable Long id,
+                                                              @PathVariable int indice,
+                                                              @Valid @RequestBody NecesidadRequestDTO dto) {
+        return mapper.toResponseDTO(service.actualizarNecesidad(id, indice, mapper.necesidadToEntity(dto)));
     }
 
     @DeleteMapping("/{id}/necesidades/{indice}")

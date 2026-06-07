@@ -70,6 +70,16 @@ public class EntidadBeneficiaria {
         necesidades.add(nuevaNecesidad);
     }
 
+    public void actualizarNecesidad(int indice, Necesidad nueva) {
+        if (nueva == null) {
+            throw new IllegalArgumentException("¡Se debe ingresar una necesidad válida!");
+        }
+        if (indice < 0 || indice >= necesidades.size()) {
+            throw new IllegalArgumentException("Índice de necesidad inválido: " + indice);
+        }
+        necesidades.set(indice, nueva);
+    }
+
     @Override
     public String toString(){
         return tipo + "\n" +

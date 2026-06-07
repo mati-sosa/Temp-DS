@@ -25,7 +25,7 @@ public class MatchmakingCompatibilidadSemantica implements EstrategiaMatchmaking
     }
 
     private boolean validarPeso(double peso){
-        return peso >= 0 && peso < 1;
+        return peso >= 0 && peso <= 1;
     }
 
 
@@ -41,13 +41,10 @@ public class MatchmakingCompatibilidadSemantica implements EstrategiaMatchmaking
     }
 
     private double similitudTextual(PosibleMatch unPosibleMatch){
-        return 1 - ((double) computeLevenshteinDistance(
-                unPosibleMatch.getDonacion().getSubcategoriaBien().getDescripcion(),
-                unPosibleMatch.getNecesidad().getSubcategoria().getDescripcion()
-        ) /Math.max(
-                unPosibleMatch.getDonacion().getSubcategoriaBien().getDescripcion().length(),
-                unPosibleMatch.getNecesidad().getSubcategoria().getDescripcion().length()
-        ));
+        String nombreBien = unPosibleMatch.getDonacion().getSubcategoriaBien().getDescripcion();
+        String descNecesidad = unPosibleMatch.getNecesidad().getDescripcion();
+        return 1 - ((double) computeLevenshteinDistance(nombreBien, descNecesidad)
+                / Math.max(nombreBien.length(), descNecesidad.length()));
     }
 
     private double coberturaVolumen(PosibleMatch unPosibleMatch) {

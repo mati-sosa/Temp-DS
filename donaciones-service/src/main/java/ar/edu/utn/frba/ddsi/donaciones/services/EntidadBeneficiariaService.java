@@ -57,4 +57,14 @@ public class EntidadBeneficiariaService {
         necesidades.remove(indice);
         return repositorio.guardar(entidad);
     }
+
+    public EntidadBeneficiaria actualizarNecesidad(Long entidadId, int indice, Necesidad nueva) {
+        EntidadBeneficiaria entidad = buscarPorId(entidadId);
+        entidad.actualizarNecesidad(indice, nueva);
+        return repositorio.guardar(entidad);
+    }
+
+    public List<Necesidad> listarNecesidades(Long entidadId) {
+        return buscarPorId(entidadId).getNecesidades();
+    }
 }

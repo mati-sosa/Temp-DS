@@ -59,6 +59,15 @@ public class DonacionService {
         return buscarPorId(id).getHistorialEstados();
     }
 
+    public List<Donacion> buscarPorDonante(Long donanteId) {
+        return donacionRepository.buscarTodas().stream()
+                .filter(d -> {
+                    var donante = d.getDonacionDeOrigen().getDonante();
+                    return donante != null && donanteId.equals(donante.getId());
+                })
+                .toList();
+    }
+
     public long contarOrganizacionesAyudadas(Long donanteId) {
         return donacionRepository.buscarTodas().stream()
                 .filter(d -> d.getEntidadBeneficiariaId() != null)

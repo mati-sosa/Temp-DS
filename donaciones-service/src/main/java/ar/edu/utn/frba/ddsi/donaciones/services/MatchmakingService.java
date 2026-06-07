@@ -71,6 +71,12 @@ public class MatchmakingService {
                         + " fue asignada a " + entidad.getRazonSocial() + "."
         );
 
+        notificacionClient.enviar(
+                entidad.getTelefono(),
+                "Se te asignó una donación de " + donacion.getSubcategoriaBien().getDescripcion()
+                        + " de parte de " + donante.getNombre_razonSocial() + "."
+        );
+
         return donacion;
     }
 

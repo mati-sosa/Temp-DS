@@ -32,7 +32,7 @@ public class MatchmakingService {
         this.donacionService = donacionService;
         this.notificacionClient = notificacionClient;
         this.motor = new MotorDeMatchmaking(List.of(
-                new MatchmakingCompatibilidadSemantica(0.4, 0.4, 0.2),
+                new MatchmakingCompatibilidadSemantica(),
                 new MatchmakingPrioridadSubatendidos(0.1)
         ));
     }

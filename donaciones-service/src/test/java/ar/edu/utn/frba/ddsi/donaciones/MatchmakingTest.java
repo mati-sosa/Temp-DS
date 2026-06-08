@@ -14,6 +14,7 @@ import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.Genero;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.TipoDocumento;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.donantes.TipoPersona;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.entidades_beneficiarias.EntidadBeneficiaria;
+import ar.edu.utn.frba.ddsi.donaciones.models.entities.entidades_beneficiarias.PreferenciasMatchmaking;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.entidades_beneficiarias.TipoEntidadBeneficiaria;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.matchmaking.*;
 import ar.edu.utn.frba.ddsi.donaciones.models.entities.necesidades.Necesidad;
@@ -91,6 +92,9 @@ public class MatchmakingTest {
                 List.of(new Representante("Homero", medioDeContactoEmail)),
                 necesidades
         );
+        entidad1.setPreferencias(
+                new PreferenciasMatchmaking(0.3,0.5,0.2)
+        );
     }
 
     @Test
@@ -115,7 +119,7 @@ public class MatchmakingTest {
     @Test
     void pruebaMatchmakingSemantico() {
         listaDeBienes.add(bien1);
-        MatchmakingCompatibilidadSemantica mm = new MatchmakingCompatibilidadSemantica(0.5, 0.3, 0.2);
+        MatchmakingCompatibilidadSemantica mm = new MatchmakingCompatibilidadSemantica();
         EvaluacionMatch unaEvaluacion = mm.evaluar(new PosibleMatch(donacion1, necesidadRecurrente1, entidad1));
         System.out.println(unaEvaluacion);
     }
@@ -127,7 +131,7 @@ public class MatchmakingTest {
         entidades.add(entidad1);
 
         MotorDeMatchmaking motor = new MotorDeMatchmaking(List.of(
-                new MatchmakingCompatibilidadSemantica(0.4, 0.4, 0.2),
+                new MatchmakingCompatibilidadSemantica(),
                 new MatchmakingPrioridadSubatendidos(0.1)
         ));
         List<List<EvaluacionMatch>> resultado = motor.ejecutar(donaciones, entidades);

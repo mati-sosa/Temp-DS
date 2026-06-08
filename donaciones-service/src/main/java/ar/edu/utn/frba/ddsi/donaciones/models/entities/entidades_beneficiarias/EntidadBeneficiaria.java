@@ -27,6 +27,9 @@ public class EntidadBeneficiaria {
     private List<Representante> representantes;
     private List<Necesidad> necesidades = null;
     private int donacionesRecibidasEnTrimestre = 0;
+    @Getter
+    @Setter
+    private PreferenciasMatchmaking preferencias;
 
     public EntidadBeneficiaria(TipoEntidadBeneficiaria tipo, String razonSocial, Direccion direccion, MedioDeContacto telefono, List<Representante> representantes, List<Necesidad> necesidades) {
         if (tipo == null) {

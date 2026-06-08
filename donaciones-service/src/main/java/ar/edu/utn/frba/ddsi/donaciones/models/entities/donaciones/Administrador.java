@@ -14,6 +14,8 @@ public class Administrador {
     public Administrador(String unNombre, String unId){
         nombre = unNombre;
         id = unId;
+        donacionesTotales = new ArrayList<>();
+        entidadesBeneficiarias = new ArrayList<>();
     }
 
     public void registrarDonacion(DonacionTotal unaDonacionTotal){

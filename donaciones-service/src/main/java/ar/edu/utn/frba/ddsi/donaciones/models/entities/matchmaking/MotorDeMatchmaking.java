@@ -17,11 +17,6 @@ public class MotorDeMatchmaking {
         this.generadorDeMatches = new GeneradorDeMatches();
     }
 
-    /**
-     * Ejecuta todos los algoritmos de matchmaking sobre las donaciones en depósito y las
-     * entidades beneficiarias. Devuelve la intersección de los top-10 de cada algoritmo;
-     * si no hay intersección, devuelve los rankings de cada algoritmo por separado.
-     */
     public List<List<EvaluacionMatch>> ejecutar(ArrayList<Donacion> donaciones, ArrayList<EntidadBeneficiaria> entidades) {
         ArrayList<PosibleMatch> posiblesMatches = generadorDeMatches.generarMatches(donaciones, entidades);
 
@@ -40,11 +35,6 @@ public class MotorDeMatchmaking {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Devuelve las evaluaciones que aparecen en el top-10 de TODOS los algoritmos.
-     * Si la intersección es vacía, devuelve los rankings por separado para que el
-     * administrador pueda elegir.
-     */
     private List<List<EvaluacionMatch>> intersectarRankings(List<List<EvaluacionMatch>> rankings) {
         if (rankings.isEmpty()) return rankings;
 

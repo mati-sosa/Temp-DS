@@ -34,6 +34,12 @@ public class DonacionService {
                 .orElseThrow(() -> new NoSuchElementException("Donación no encontrada: " + id));
     }
 
+    public Donacion actualizar(Long id, Long entidadBeneficiariaId) {
+        Donacion donacion = buscarPorId(id);
+        donacion.setEntidadBeneficiariaId(entidadBeneficiariaId);
+        return donacionRepository.guardar(donacion);
+    }
+
     public void eliminar(Long id) {
         if (!donacionRepository.existePorId(id))
             throw new NoSuchElementException("Donación no encontrada: " + id);

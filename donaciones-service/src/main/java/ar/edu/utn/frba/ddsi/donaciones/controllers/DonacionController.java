@@ -47,6 +47,13 @@ public class DonacionController {
                 .toList();
     }
 
+    @PutMapping("/{id}")
+    public DonacionResponseDTO actualizar(@PathVariable Long id,
+                                         @Valid @RequestBody DonacionUpdateRequestDTO dto) {
+        return donacionMapper.toResponseDTO(
+                donacionService.actualizar(id, dto.getEntidadBeneficiariaId()));
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminar(@PathVariable Long id) {

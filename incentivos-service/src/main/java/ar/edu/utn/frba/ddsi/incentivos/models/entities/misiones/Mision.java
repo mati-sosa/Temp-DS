@@ -21,8 +21,16 @@ public abstract class Mision {
   // o si se genera dinámicamente al completarla
   // private final Insignia insignia;
 
-  // TODO: validaciones de campos
   protected Mision(String nombre, String descripcion, Categoria categoria, int orden, int objetivo) {
+    if (nombre == null || nombre.isBlank()) {
+      throw new IllegalArgumentException("La misión debe tener un nombre");
+    }
+    if (categoria == null) {
+      throw new IllegalArgumentException("La misión debe pertenecer a una categoría");
+    }
+    if (objetivo <= 0) {
+      throw new IllegalArgumentException("El objetivo de la misión debe ser mayor a 0");
+    }
     this.nombre = nombre;
     this.descripcion = descripcion;
     this.categoria = categoria;

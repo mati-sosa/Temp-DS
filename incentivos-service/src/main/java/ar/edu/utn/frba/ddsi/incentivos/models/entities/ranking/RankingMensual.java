@@ -12,8 +12,13 @@ public class RankingMensual {
   private final List<PuestoRanking> puestos;
   private final LocalDate fechaPublicacion;
 
-  // TODO: validaciones de campos
   public RankingMensual(int anio, int mes, List<PuestoRanking> puestos) {
+    if (mes < 1 || mes > 12) {
+      throw new IllegalArgumentException("El mes debe estar entre 1 y 12");
+    }
+    if (puestos == null) {
+      throw new IllegalArgumentException("El ranking debe tener una lista de puestos");
+    }
     this.anio = anio;
     this.mes = mes;
     this.puestos = puestos;

@@ -24,8 +24,16 @@ public class PerfilDonante {
   private final List<Insignia> insignias;
   private MisionEnProgreso misionActual;
 
-  // TODO: validaciones de campos
   public PerfilDonante(Long donanteId, String user, Mision primeraMision) {
+    if (donanteId == null) {
+      throw new IllegalArgumentException("El perfil debe referenciar a un donante");
+    }
+    if (user == null || user.isBlank()) {
+      throw new IllegalArgumentException("El perfil debe tener un nombre de usuario");
+    }
+    if (primeraMision == null) {
+      throw new IllegalArgumentException("El perfil debe arrancar con una misión");
+    }
     this.donanteId = donanteId;
     this.user = user;
     this.categoria = Categoria.COLABORADOR;

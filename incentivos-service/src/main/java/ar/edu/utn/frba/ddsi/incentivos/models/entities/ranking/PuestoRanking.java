@@ -10,8 +10,13 @@ public class PuestoRanking {
   private final String donanteUser;
   private final int misionesCompletadas;
 
-  // TODO: validaciones de campos
   public PuestoRanking(int posicion, Long donanteId, String donanteUser, int misionesCompletadas) {
+    if (posicion < 1) {
+      throw new IllegalArgumentException("La posición debe ser mayor o igual a 1");
+    }
+    if (donanteId == null) {
+      throw new IllegalArgumentException("El puesto debe referenciar a un donante");
+    }
     this.posicion = posicion;
     this.donanteId = donanteId;
     this.donanteUser = donanteUser;

@@ -11,8 +11,13 @@ public class Insignia {
   private final Categoria categoria;
   private final LocalDate fechaObtenida;
 
-  // TODO: validaciones de campos
   public Insignia(String nombre, Categoria categoria) {
+    if (nombre == null || nombre.isBlank()) {
+      throw new IllegalArgumentException("La insignia debe tener un nombre");
+    }
+    if (categoria == null) {
+      throw new IllegalArgumentException("La insignia debe pertenecer a una categoría");
+    }
     this.nombre = nombre;
     this.categoria = categoria;
     this.fechaObtenida = LocalDate.now();

@@ -1,6 +1,8 @@
 package ar.edu.utn.frba.ddsi.incentivos.services.difusion;
 
 import ar.edu.utn.frba.ddsi.incentivos.models.eventos.InsigniaObtenida;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -11,10 +13,12 @@ import org.springframework.web.client.RestClient;
  * la red social.
  *
  * <p>La URL del webhook se configura en application.properties (n8n.webhook.url). Si no está
- * configurada, no rompe: simplemente registra que difundiría (útil para tests y desarrollo).
+ * configurada no rompe: registra una advertencia (útil para desarrollo y tests).
  */
 @Service
 public class N8nDifusorAdapter implements DifusorDeInsignias {
+  private static final Logger log = LoggerFactory.getLogger(N8nDifusorAdapter.class);
+
   private final String webhookUrl;
   private final RestClient restClient;
 
@@ -26,7 +30,7 @@ public class N8nDifusorAdapter implements DifusorDeInsignias {
   @Override
   public void difundir(InsigniaObtenida insignia) {
     if (webhookUrl == null || webhookUrl.isBlank()) {
-      System.out.println("[n8n] (sin webhook configurado) Se difundiría: " + insignia.getTexto());
+      log.warn("[n8n] Sin webhook configurado; no se difunde la insignia: {}", insignia.getTexto());
       return;
     }
     try {
@@ -36,8 +40,7 @@ public class N8nDifusorAdapter implements DifusorDeInsignias {
           .retrieve()
           .toBodilessEntity();
     } catch (RuntimeException e) {
-      // No bloquear la operación del donante si n8n falla.
-      System.out.println("[n8n] Error al difundir la insignia: " + e.getMessage());
+      log.warn("[n8n] Error al difundir la insignia: {}", e.getMessage());
     }
   }
 }

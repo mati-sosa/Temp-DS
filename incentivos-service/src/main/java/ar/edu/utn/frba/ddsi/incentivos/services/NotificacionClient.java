@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.ddsi.incentivos.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -8,6 +10,8 @@ import java.util.Map;
 
 @Service
 public class NotificacionClient implements NotificadorDonante {
+
+    private static final Logger log = LoggerFactory.getLogger(NotificacionClient.class);
 
     private final RestClient restClient;
     private final String notificacionesUrl;
@@ -48,7 +52,7 @@ public class NotificacionClient implements NotificadorDonante {
                     .retrieve()
                     .toBodilessEntity();
         } catch (RuntimeException e) {
-            System.out.println("[incentivos-notif] Error al notificar donante " + donanteId + ": " + e.getMessage());
+            log.warn("[incentivos-notif] Error al notificar donante {}: {}", donanteId, e.getMessage());
         }
     }
 }

@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import lombok.Getter;
 
 /**
- * Representa el dato de una donación que llega al Servicio de Incentivos para impactar
- * en el progreso de las misiones. Es el "contrato" que en la integración real proveerá
- * el Servicio de Donaciones (por ahora se carga a mano / desde tests).
+ * Dato de una donación que llega al Servicio de Incentivos para impactar en el progreso de
+ * las misiones. Es el contrato de integración entrante: el Servicio de Donaciones lo envía
+ * (POST /incentivos/donantes/{id}/donaciones) al confirmar una donación.
  */
 @Getter
 public class EventoDonacion {
@@ -15,8 +15,16 @@ public class EventoDonacion {
   private final int cantidadBienes;
   private final boolean exitosa;
 
-  // TODO: validaciones de campos
   public EventoDonacion(LocalDate fecha, String categoria, int cantidadBienes, boolean exitosa) {
+    if (fecha == null) {
+      throw new IllegalArgumentException("La donación debe tener una fecha");
+    }
+    if (categoria == null || categoria.isBlank()) {
+      throw new IllegalArgumentException("La donación debe tener una categoría");
+    }
+    if (cantidadBienes < 0) {
+      throw new IllegalArgumentException("La cantidad de bienes no puede ser negativa");
+    }
     this.fecha = fecha;
     this.categoria = categoria;
     this.cantidadBienes = cantidadBienes;

@@ -2,6 +2,7 @@ package ar.edu.utn.frba.ddsi.incentivos.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -14,13 +15,14 @@ public class NotificacionClient implements NotificadorDonante {
     private static final Logger log = LoggerFactory.getLogger(NotificacionClient.class);
 
     private final RestClient restClient;
-    private final String notificacionesUrl;
-    private final String donacionesUrl;
+    private final RabbitTemplate rabbitTemplate;
+    private static final String QUEUE_NAME = "cola.notificaciones";
 
+    private final String donacionesUrl;
     public NotificacionClient(
-            @Value("${notificaciones.service.url:http://localhost:8081}") String notificacionesUrl,
+            RabbitTemplate rabbitTemplate,
             @Value("${donaciones.service.url:http://localhost:8080}") String donacionesUrl) {
-        this.notificacionesUrl = notificacionesUrl;
+        this.rabbitTemplate = rabbitTemplate;
         this.donacionesUrl = donacionesUrl;
         this.restClient = RestClient.create();
     }
@@ -46,11 +48,8 @@ public class NotificacionClient implements NotificadorDonante {
                     "mensaje", mensaje
             );
 
-            restClient.post()
-                    .uri(notificacionesUrl + "/enviar-notificacion")
-                    .body(body)
-                    .retrieve()
-                    .toBodilessEntity();
+            rabbitTemplate.convertAndSend(QUEUE_NAME, body);
+            log.info("[incentivos-notif] Mensaje encolado con éxito para el donante {}", donanteId);
         } catch (RuntimeException e) {
             log.warn("[incentivos-notif] Error al notificar donante {}: {}", donanteId, e.getMessage());
         }

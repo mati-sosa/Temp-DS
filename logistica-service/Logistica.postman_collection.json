@@ -1,0 +1,902 @@
+{
+  "info": {
+    "name": "DonaTrack - Logistica Service",
+    "_postman_id": "donatrack-logistica-p3",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8083" },
+    { "key": "ruta_id", "value": "" },
+    { "key": "entrega_id_a", "value": "" },
+    { "key": "entrega_id_b", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Rutas",
+      "item": [
+        {
+          "name": "Crear ruta (con destino y 2 entregas)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "const jsonData = pm.response.json();",
+                  "pm.test(\"Ruta creada con estado Planificada\", function () {",
+                  "    pm.expect(jsonData.estado).to.eql(\"Planificada\");",
+                  "});",
+                  "pm.test(\"Tiene 1 destino con 2 entregas en estado Pendiente\", function () {",
+                  "    pm.expect(jsonData.destinos).to.have.lengthOf(1);",
+                  "    pm.expect(jsonData.destinos[0].entregas).to.have.lengthOf(2);",
+                  "    pm.expect(jsonData.destinos[0].entregas[0].estado).to.eql(\"Pendiente\");",
+                  "});",
+                  "pm.collectionVariables.set(\"ruta_id\", jsonData.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/rutas", "host": ["{{base_url}}"], "path": ["rutas"] },
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"chofer\": { \"id\": \"CH-1\", \"nombre\": \"Juan Perez\" },\n  \"camion\": { \"patente\": \"AB123CD\", \"altura\": 2.5, \"capacidadVolumen\": 20, \"capacidadCarga\": 1500, \"disponible\": true },\n  \"fechaReparto\": \"2026-07-10T09:00:00\",\n  \"destinos\": [\n    {\n      \"direccion\": { \"calle\": \"Calle Falsa 123\", \"ciudad\": \"CABA\", \"provincia\": \"Buenos Aires\", \"codigoPostal\": \"1000\" },\n      \"entidadBeneficiariaID\": \"entidad-1\",\n      \"orden\": 1,\n      \"entregas\": [\n        { \"donacionID\": \"donacion-1\" },\n        { \"donacionID\": \"donacion-2\" }\n      ]\n    }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Listar rutas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"La respuesta es un arreglo que incluye la ruta creada\", function () {",
+                  "    const ids = pm.response.json().map(r => r.id);",
+                  "    pm.expect(ids).to.include(Number(pm.collectionVariables.get(\"ruta_id\")));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/rutas", "host": ["{{base_url}}"], "path": ["rutas"] }
+          }
+        },
+        {
+          "name": "Buscar ruta por ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Devuelve la ruta esperada\", function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.id).to.eql(Number(pm.collectionVariables.get(\"ruta_id\")));",
+                  "    pm.expect(jsonData.chofer.id).to.eql(\"CH-1\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/rutas/{{ruta_id}}", "host": ["{{base_url}}"], "path": ["rutas", "{{ruta_id}}"] }
+          }
+        },
+        {
+          "name": "[ERROR 404] Ruta inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test(\"Body contiene mensaje de error\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property(\"error\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/rutas/999999", "host": ["{{base_url}}"], "path": ["rutas", "999999"] }
+          }
+        },
+        {
+          "name": "[ERROR 400] Ruta con id no numérico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Body contiene mensaje de error\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property(\"error\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/rutas/abc", "host": ["{{base_url}}"], "path": ["rutas", "abc"] }
+          }
+        },
+        {
+          "name": "[ERROR 400] Crear ruta sin destinos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Body contiene lista de errores de validación\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property(\"errores\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/rutas", "host": ["{{base_url}}"], "path": ["rutas"] },
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"chofer\": { \"id\": \"CH-1\", \"nombre\": \"Juan Perez\" },\n  \"camion\": { \"patente\": \"AB123CD\", \"altura\": 2.5, \"capacidadVolumen\": 20, \"capacidadCarga\": 1500, \"disponible\": true },\n  \"fechaReparto\": \"2026-07-10T09:00:00\",\n  \"destinos\": []\n}"
+            }
+          }
+        },
+        {
+          "name": "Actualizar ruta (reasignar chofer y camión)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"El chofer fue reasignado\", function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.chofer.id).to.eql(\"CH-2\");",
+                  "    pm.expect(jsonData.camion.patente).to.eql(\"ZZ999XX\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/rutas/{{ruta_id}}", "host": ["{{base_url}}"], "path": ["rutas", "{{ruta_id}}"] },
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"chofer\": { \"id\": \"CH-2\", \"nombre\": \"Ana Gomez\" },\n  \"camion\": { \"patente\": \"ZZ999XX\", \"altura\": 3.0, \"capacidadVolumen\": 25, \"capacidadCarga\": 2000, \"disponible\": true },\n  \"fechaReparto\": \"2026-07-11T09:00:00\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Cambiar estado ruta - INICIAR",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Ruta pasa a En curso y cascadea a las entregas\", function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.estado).to.eql(\"En curso\");",
+                  "    pm.expect(jsonData.destinos[0].entregas[0].estado).to.eql(\"En traslado\");",
+                  "    pm.expect(jsonData.destinos[0].entregas[1].estado).to.eql(\"En traslado\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/rutas/{{ruta_id}}/estado", "host": ["{{base_url}}"], "path": ["rutas", "{{ruta_id}}", "estado"] },
+            "body": { "mode": "raw", "options": { "raw": { "language": "json" } }, "raw": "{\n  \"accion\": \"INICIAR\"\n}" }
+          }
+        },
+        {
+          "name": "[ERROR 409] Iniciar ruta ya iniciada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 409\", function () {",
+                  "    pm.response.to.have.status(409);",
+                  "});",
+                  "pm.test(\"Body contiene mensaje de error\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property(\"error\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/rutas/{{ruta_id}}/estado", "host": ["{{base_url}}"], "path": ["rutas", "{{ruta_id}}", "estado"] },
+            "body": { "mode": "raw", "options": { "raw": { "language": "json" } }, "raw": "{\n  \"accion\": \"INICIAR\"\n}" }
+          }
+        },
+        {
+          "name": "Ver auditoría de la ruta",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Registra la transición a En curso\", function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.lengthOf(1);",
+                  "    pm.expect(jsonData[0].estadoAnterior).to.eql(\"Planificada\");",
+                  "    pm.expect(jsonData[0].estadoNuevo).to.eql(\"En curso\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/rutas/{{ruta_id}}/auditoria", "host": ["{{base_url}}"], "path": ["rutas", "{{ruta_id}}", "auditoria"] }
+          }
+        },
+        {
+          "name": "Cambiar estado ruta - FINALIZAR",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Ruta pasa a Finalizada\", function () {",
+                  "    pm.expect(pm.response.json().estado).to.eql(\"Finalizada\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/rutas/{{ruta_id}}/estado", "host": ["{{base_url}}"], "path": ["rutas", "{{ruta_id}}", "estado"] },
+            "body": { "mode": "raw", "options": { "raw": { "language": "json" } }, "raw": "{\n  \"accion\": \"FINALIZAR\"\n}" }
+          }
+        },
+        {
+          "name": "[ERROR 400] Acción de estado inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Body contiene mensaje de error\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property(\"error\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/rutas/{{ruta_id}}/estado", "host": ["{{base_url}}"], "path": ["rutas", "{{ruta_id}}", "estado"] },
+            "body": { "mode": "raw", "options": { "raw": { "language": "json" } }, "raw": "{\n  \"accion\": \"VOLAR\"\n}" }
+          }
+        },
+        {
+          "name": "Eliminar ruta",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/rutas/{{ruta_id}}", "host": ["{{base_url}}"], "path": ["rutas", "{{ruta_id}}"] }
+          }
+        },
+        {
+          "name": "[ERROR 404] Buscar ruta eliminada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/rutas/{{ruta_id}}", "host": ["{{base_url}}"], "path": ["rutas", "{{ruta_id}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Entregas",
+      "item": [
+        {
+          "name": "Crear entrega A (standalone, happy path)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "const jsonData = pm.response.json();",
+                  "pm.test(\"Entrega creada en estado Pendiente\", function () {",
+                  "    pm.expect(jsonData.estado).to.eql(\"Pendiente\");",
+                  "    pm.expect(jsonData.donacionID).to.eql(\"donacion-standalone-a\");",
+                  "});",
+                  "pm.collectionVariables.set(\"entrega_id_a\", jsonData.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/entregas", "host": ["{{base_url}}"], "path": ["entregas"] },
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"donacionID\": \"donacion-standalone-a\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Crear entrega B (standalone, no recibida)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "const jsonData = pm.response.json();",
+                  "pm.test(\"Entrega creada en estado Pendiente\", function () {",
+                  "    pm.expect(jsonData.estado).to.eql(\"Pendiente\");",
+                  "});",
+                  "pm.collectionVariables.set(\"entrega_id_b\", jsonData.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/entregas", "host": ["{{base_url}}"], "path": ["entregas"] },
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"donacionID\": \"donacion-standalone-b\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Listar entregas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Incluye ambas entregas creadas\", function () {",
+                  "    const ids = pm.response.json().map(e => e.id);",
+                  "    pm.expect(ids).to.include(Number(pm.collectionVariables.get(\"entrega_id_a\")));",
+                  "    pm.expect(ids).to.include(Number(pm.collectionVariables.get(\"entrega_id_b\")));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/entregas", "host": ["{{base_url}}"], "path": ["entregas"] }
+          }
+        },
+        {
+          "name": "Buscar entrega A por ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Devuelve la entrega esperada\", function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.id).to.eql(Number(pm.collectionVariables.get(\"entrega_id_a\")));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/entregas/{{entrega_id_a}}", "host": ["{{base_url}}"], "path": ["entregas", "{{entrega_id_a}}"] }
+          }
+        },
+        {
+          "name": "[ERROR 404] Entrega inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test(\"Body contiene mensaje de error\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property(\"error\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/entregas/999999", "host": ["{{base_url}}"], "path": ["entregas", "999999"] }
+          }
+        },
+        {
+          "name": "[ERROR 400] Entrega con id no numérico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Body contiene mensaje de error\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property(\"error\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/entregas/xyz", "host": ["{{base_url}}"], "path": ["entregas", "xyz"] }
+          }
+        },
+        {
+          "name": "[ERROR 400] Crear entrega sin donacionID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Body contiene lista de errores de validación\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property(\"errores\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/entregas", "host": ["{{base_url}}"], "path": ["entregas"] },
+            "body": { "mode": "raw", "options": { "raw": { "language": "json" } }, "raw": "{}" }
+          }
+        },
+        {
+          "name": "Actualizar entrega A (reprogramar fecha)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"La fecha de entrega fue actualizada\", function () {",
+                  "    pm.expect(pm.response.json().fechaHoraEntrega).to.eql(\"2026-07-12T10:30:00\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/entregas/{{entrega_id_a}}", "host": ["{{base_url}}"], "path": ["entregas", "{{entrega_id_a}}"] },
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"donacionID\": \"donacion-standalone-a\",\n  \"fechaHoraEntrega\": \"2026-07-12T10:30:00\"\n}"
+            }
+          }
+        },
+        {
+          "name": "[ERROR 409] Confirmar recepción sin iniciar traslado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 409\", function () {",
+                  "    pm.response.to.have.status(409);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/entregas/{{entrega_id_a}}/estado", "host": ["{{base_url}}"], "path": ["entregas", "{{entrega_id_a}}", "estado"] },
+            "body": { "mode": "raw", "options": { "raw": { "language": "json" } }, "raw": "{\n  \"accion\": \"CONFIRMAR_RECEPCION\",\n  \"fotos\": [\"foto.jpg\"]\n}" }
+          }
+        },
+        {
+          "name": "Cambiar estado A - INICIAR_TRASLADO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Entrega pasa a En traslado\", function () {",
+                  "    pm.expect(pm.response.json().estado).to.eql(\"En traslado\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/entregas/{{entrega_id_a}}/estado", "host": ["{{base_url}}"], "path": ["entregas", "{{entrega_id_a}}", "estado"] },
+            "body": { "mode": "raw", "options": { "raw": { "language": "json" } }, "raw": "{\n  \"accion\": \"INICIAR_TRASLADO\"\n}" }
+          }
+        },
+        {
+          "name": "[ERROR 409] Iniciar traslado nuevamente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 409\", function () {",
+                  "    pm.response.to.have.status(409);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/entregas/{{entrega_id_a}}/estado", "host": ["{{base_url}}"], "path": ["entregas", "{{entrega_id_a}}", "estado"] },
+            "body": { "mode": "raw", "options": { "raw": { "language": "json" } }, "raw": "{\n  \"accion\": \"INICIAR_TRASLADO\"\n}" }
+          }
+        },
+        {
+          "name": "Cambiar estado A - CONFIRMAR_RECEPCION",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Entrega pasa a Entregada con fotos y fecha\", function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.estado).to.eql(\"Entregada\");",
+                  "    pm.expect(jsonData.fotos).to.include(\"foto1.jpg\");",
+                  "    pm.expect(jsonData.fechaHoraEntrega).to.not.be.null;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/entregas/{{entrega_id_a}}/estado", "host": ["{{base_url}}"], "path": ["entregas", "{{entrega_id_a}}", "estado"] },
+            "body": { "mode": "raw", "options": { "raw": { "language": "json" } }, "raw": "{\n  \"accion\": \"CONFIRMAR_RECEPCION\",\n  \"fotos\": [\"foto1.jpg\"]\n}" }
+          }
+        },
+        {
+          "name": "Ver auditoría de entrega A",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Registra las dos transiciones\", function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.lengthOf(2);",
+                  "    pm.expect(jsonData[0].estadoNuevo).to.eql(\"En traslado\");",
+                  "    pm.expect(jsonData[1].estadoNuevo).to.eql(\"Entregada\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/entregas/{{entrega_id_a}}/auditoria", "host": ["{{base_url}}"], "path": ["entregas", "{{entrega_id_a}}", "auditoria"] }
+          }
+        },
+        {
+          "name": "[ERROR 409] Confirmar recepción nuevamente (ya entregada)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 409\", function () {",
+                  "    pm.response.to.have.status(409);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/entregas/{{entrega_id_a}}/estado", "host": ["{{base_url}}"], "path": ["entregas", "{{entrega_id_a}}", "estado"] },
+            "body": { "mode": "raw", "options": { "raw": { "language": "json" } }, "raw": "{\n  \"accion\": \"CONFIRMAR_RECEPCION\",\n  \"fotos\": [\"foto2.jpg\"]\n}" }
+          }
+        },
+        {
+          "name": "Cambiar estado B - INICIAR_TRASLADO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Entrega B pasa a En traslado\", function () {",
+                  "    pm.expect(pm.response.json().estado).to.eql(\"En traslado\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/entregas/{{entrega_id_b}}/estado", "host": ["{{base_url}}"], "path": ["entregas", "{{entrega_id_b}}", "estado"] },
+            "body": { "mode": "raw", "options": { "raw": { "language": "json" } }, "raw": "{\n  \"accion\": \"INICIAR_TRASLADO\"\n}" }
+          }
+        },
+        {
+          "name": "Cambiar estado B - MARCAR_NO_RECIBIDA",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Entrega B pasa a No recibida\", function () {",
+                  "    pm.expect(pm.response.json().estado).to.eql(\"No recibida\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/entregas/{{entrega_id_b}}/estado", "host": ["{{base_url}}"], "path": ["entregas", "{{entrega_id_b}}", "estado"] },
+            "body": { "mode": "raw", "options": { "raw": { "language": "json" } }, "raw": "{\n  \"accion\": \"MARCAR_NO_RECIBIDA\",\n  \"justificacion\": \"Tocamos timbre pero nadie respondió\"\n}" }
+          }
+        },
+        {
+          "name": "Cambiar estado B - REINGRESAR_DEPOSITO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Entrega B vuelve a Pendiente\", function () {",
+                  "    pm.expect(pm.response.json().estado).to.eql(\"Pendiente\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/entregas/{{entrega_id_b}}/estado", "host": ["{{base_url}}"], "path": ["entregas", "{{entrega_id_b}}", "estado"] },
+            "body": { "mode": "raw", "options": { "raw": { "language": "json" } }, "raw": "{\n  \"accion\": \"REINGRESAR_DEPOSITO\"\n}" }
+          }
+        },
+        {
+          "name": "[ERROR 400] Acción de estado inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Body contiene mensaje de error\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property(\"error\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/entregas/{{entrega_id_b}}/estado", "host": ["{{base_url}}"], "path": ["entregas", "{{entrega_id_b}}", "estado"] },
+            "body": { "mode": "raw", "options": { "raw": { "language": "json" } }, "raw": "{\n  \"accion\": \"VOLAR\"\n}" }
+          }
+        },
+        {
+          "name": "Eliminar entrega A",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/entregas/{{entrega_id_a}}", "host": ["{{base_url}}"], "path": ["entregas", "{{entrega_id_a}}"] }
+          }
+        },
+        {
+          "name": "[ERROR 404] Buscar entrega A eliminada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 404\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/entregas/{{entrega_id_a}}", "host": ["{{base_url}}"], "path": ["entregas", "{{entrega_id_a}}"] }
+          }
+        },
+        {
+          "name": "Eliminar entrega B",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/entregas/{{entrega_id_b}}", "host": ["{{base_url}}"], "path": ["entregas", "{{entrega_id_b}}"] }
+          }
+        }
+      ]
+    }
+  ]
+}

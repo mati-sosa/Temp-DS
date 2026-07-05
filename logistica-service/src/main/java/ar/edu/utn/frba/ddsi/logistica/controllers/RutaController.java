@@ -3,6 +3,7 @@ package ar.edu.utn.frba.ddsi.logistica.controllers;
 import ar.edu.utn.frba.ddsi.logistica.dto.*;
 import ar.edu.utn.frba.ddsi.logistica.dto.mappers.RutaMapper;
 import ar.edu.utn.frba.ddsi.logistica.security.WebhookSignatureVerifier;
+import ar.edu.utn.frba.ddsi.logistica.services.PlanificacionRutasService;
 import ar.edu.utn.frba.ddsi.logistica.services.RutaService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -21,12 +22,20 @@ public class RutaController {
     private final RutaMapper rutaMapper;
     private final ObjectMapper objectMapper;
     private final WebhookSignatureVerifier signatureVerifier;
+    private final PlanificacionRutasService planificacionRutasService;
 
-    public RutaController(RutaService rutaService, RutaMapper rutaMapper, ObjectMapper objectMapper, WebhookSignatureVerifier signatureVerifier) {
-        this.rutaService = rutaService;
-        this.rutaMapper = rutaMapper;
-        this.objectMapper = objectMapper;
-        this.signatureVerifier = signatureVerifier;
+    public RutaController(
+          RutaService rutaService,
+          RutaMapper rutaMapper,
+          ObjectMapper objectMapper,
+          WebhookSignatureVerifier signatureVerifier,
+          PlanificacionRutasService planificacionRutasService) {
+
+      this.rutaService = rutaService;
+      this.rutaMapper = rutaMapper;
+      this.objectMapper = objectMapper;
+      this.signatureVerifier = signatureVerifier;
+      this.planificacionRutasService = planificacionRutasService;
     }
 
     @GetMapping
@@ -99,4 +108,10 @@ public class RutaController {
                 .map(rutaMapper::toAuditoriaDTO)
                 .toList();
     }
+
+    @PostMapping("/planificacion")
+    public void planificacionManual(){
+        planificacionRutasService.planificar();
+    }
+
 }

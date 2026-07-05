@@ -3,6 +3,7 @@ package ar.edu.utn.frba.ddsi.logistica.dto.mappers;
 import ar.edu.utn.frba.ddsi.logistica.dto.*;
 import ar.edu.utn.frba.ddsi.logistica.models.entities.Camion;
 import ar.edu.utn.frba.ddsi.logistica.models.entities.Chofer;
+import ar.edu.utn.frba.ddsi.logistica.models.entities.Delivery;
 import ar.edu.utn.frba.ddsi.logistica.models.entities.Direccion;
 import ar.edu.utn.frba.ddsi.logistica.models.entities.auditoria.AuditoriaTransicion;
 import ar.edu.utn.frba.ddsi.logistica.models.entities.rutas.Destino;
@@ -76,8 +77,13 @@ public class RutaMapper {
     }
 
     private CamionDTO camionToDTO(Camion camion) {
-        return new CamionDTO(camion.getPatente(), camion.getAltura(), camion.getCapacidadVolumen(),
-                camion.getCapacidadCarga(), camion.getDisponible());
+        return new CamionDTO(
+                camion.getPatente(),
+                camion.getAltura(),
+                camion.getCapacidadVolumen(),
+                camion.getCapacidadCarga(),
+                camion.getDisponible()
+        );
     }
 
     public AuditoriaTransicionDTO toAuditoriaDTO(AuditoriaTransicion transicion) {

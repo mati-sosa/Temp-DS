@@ -2,6 +2,7 @@ package ar.edu.utn.frba.ddsi.logistica.controllers;
 
 import ar.edu.utn.frba.ddsi.logistica.dto.*;
 import ar.edu.utn.frba.ddsi.logistica.dto.mappers.RutaMapper;
+import ar.edu.utn.frba.ddsi.logistica.services.PlanificacionRutasService;
 import ar.edu.utn.frba.ddsi.logistica.services.RutaService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -16,9 +17,16 @@ public class RutaController {
     private final RutaService rutaService;
     private final RutaMapper rutaMapper;
 
-    public RutaController(RutaService rutaService, RutaMapper rutaMapper) {
+    private final PlanificacionRutasService planificacionRutasService;
+
+    public RutaController(
+            RutaService rutaService,
+            RutaMapper rutaMapper,
+            PlanificacionRutasService planificacionRutasService) {
         this.rutaService = rutaService;
         this.rutaMapper = rutaMapper;
+
+        this.planificacionRutasService = planificacionRutasService;
     }
 
     @GetMapping
@@ -76,4 +84,10 @@ public class RutaController {
                 .map(rutaMapper::toAuditoriaDTO)
                 .toList();
     }
+
+    @PostMapping("/planificacion")
+    public void planificacionManual(){
+        planificacionRutasService.planificar();
+    }
+
 }

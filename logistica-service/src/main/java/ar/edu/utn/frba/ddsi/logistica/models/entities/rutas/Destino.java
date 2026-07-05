@@ -10,7 +10,7 @@ public class Destino {
     private final Direccion direccion;
     private final List<Entrega> entregas;
     private final String entidadBeneficiariaID;
-    private final Integer orden;
+    private Integer orden;
 
     public Destino(Direccion direccion, String entidadBeneficiariaID, Integer orden, List<Entrega> entregas) {
         if (direccion == null || entidadBeneficiariaID == null || entidadBeneficiariaID.isBlank()) {
@@ -20,5 +20,9 @@ public class Destino {
         this.entidadBeneficiariaID = entidadBeneficiariaID;
         this.orden = orden;
         this.entregas = entregas;
+    }
+
+    public void setOrden(Integer orden) {
+        this.orden = orden;
     }
 }

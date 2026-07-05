@@ -17,6 +17,8 @@ public class Ruta {
     @Setter
     private Long id;
     @Setter
+    private String requestId;
+    @Setter
     private Chofer chofer;
     @Setter
     private LocalDateTime fechaReparto;

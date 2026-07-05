@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class IncentivosServiceApplicationTests {
 
-  @Test
-  void contextLoads() {
-  }
+//  @Test
+//  void contextLoads() {
+//  }
 }

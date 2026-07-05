@@ -22,7 +22,7 @@ target/
 Thumbs.db
 
 # Env / configs locales
-.env
+notificaciones-service/src/main/resources/.env
 .env.*
 application-local.yml
 application-local.properties

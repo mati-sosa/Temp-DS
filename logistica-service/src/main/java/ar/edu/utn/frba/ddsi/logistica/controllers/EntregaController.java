@@ -27,7 +27,7 @@ public class EntregaController {
                 .map(entregaMapper::toResponseDTO)
                 .toList();
     }
-
+    //donatrack.com/entregas/30
     @GetMapping("/{id}")
     public EntregaResponseDTO buscarPorId(@PathVariable Long id) {
         return entregaMapper.toResponseDTO(entregaService.buscarPorId(id));
@@ -53,8 +53,11 @@ public class EntregaController {
     @PutMapping("/{id}/estado")
     public EntregaResponseDTO cambiarEstado(@PathVariable Long id,
                                             @Valid @RequestBody CambioEstadoEntregaRequestDTO dto) {
-        return entregaMapper.toResponseDTO(entregaService.cambiarEstado(
-                id, dto.getAccion().name(), dto.getJustificacion(), dto.getFotos()));
+        return entregaMapper.toResponseDTO(
+                entregaService.cambiarEstado(
+                        id, dto.getAccion().name(), dto.getJustificacion(), dto.getFotos()
+                )
+        );
     }
 
     @GetMapping("/{id}/auditoria")

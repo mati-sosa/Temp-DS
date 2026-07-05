@@ -8,6 +8,7 @@ import ar.edu.utn.frba.ddsi.logistica.models.entities.auditoria.AuditoriaTransic
 import ar.edu.utn.frba.ddsi.logistica.models.entities.rutas.Destino;
 import ar.edu.utn.frba.ddsi.logistica.models.entities.rutas.Entrega;
 import ar.edu.utn.frba.ddsi.logistica.models.entities.rutas.Ruta;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class RutaMapper {
         this.entregaMapper = entregaMapper;
     }
 
-    public Ruta toEntity(RutaRequestDTO dto) {
+    public Ruta toEntity(@org.jetbrains.annotations.UnknownNullability @Valid RutaRequestDTO dto) {
         Chofer chofer = toChofer(dto.getChofer());
         Camion camion = toCamion(dto.getCamion());
         List<Destino> destinos = dto.getDestinos().stream().map(this::toDestino).toList();

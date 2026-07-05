@@ -65,6 +65,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Map<String, String> handleGeneric(Exception e) {
-        return Map.of("error", "Error interno del servidor");
+        return Map.of("error", "Error interno del servidor: " + e.getMessage());
     }
 }

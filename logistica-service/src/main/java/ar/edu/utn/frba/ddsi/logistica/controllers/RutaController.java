@@ -39,6 +39,15 @@ public class RutaController {
         return rutaMapper.toResponseDTO(rutaService.crear(rutaMapper.toEntity(dto)));
     }
 
+    @PostMapping("/callback")
+    @ResponseStatus(HttpStatus.OK)
+    public void recibirCallBack(@Valid @RequestBody RoutingCallbackDTO callback) {
+        // por ahora loguear para confirmar que llega
+        System.out.println("Callback recibido: " + callback.getEventType());
+        System.out.println("Routes: " + callback.getData().getRoutes().size());
+        // TODO: procesar y persistir las rutas generadas;
+    }
+
     @PutMapping("/{id}")
     public RutaResponseDTO actualizar(@PathVariable Long id, @Valid @RequestBody RutaUpdateRequestDTO dto) {
         return rutaMapper.toResponseDTO(rutaService.actualizar(

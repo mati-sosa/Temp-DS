@@ -2,11 +2,15 @@ package ar.edu.utn.frba.ddsi.logistica.controllers;
 
 import ar.edu.utn.frba.ddsi.logistica.dto.*;
 import ar.edu.utn.frba.ddsi.logistica.dto.mappers.RutaMapper;
+import ar.edu.utn.frba.ddsi.logistica.security.WebhookSignatureVerifier;
 import ar.edu.utn.frba.ddsi.logistica.services.PlanificacionRutasService;
 import ar.edu.utn.frba.ddsi.logistica.services.RutaService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tools.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.List;
 
@@ -16,17 +20,22 @@ public class RutaController {
 
     private final RutaService rutaService;
     private final RutaMapper rutaMapper;
-
+    private final ObjectMapper objectMapper;
+    private final WebhookSignatureVerifier signatureVerifier;
     private final PlanificacionRutasService planificacionRutasService;
 
     public RutaController(
-            RutaService rutaService,
-            RutaMapper rutaMapper,
-            PlanificacionRutasService planificacionRutasService) {
-        this.rutaService = rutaService;
-        this.rutaMapper = rutaMapper;
+          RutaService rutaService,
+          RutaMapper rutaMapper,
+          ObjectMapper objectMapper,
+          WebhookSignatureVerifier signatureVerifier,
+          PlanificacionRutasService planificacionRutasService) {
 
-        this.planificacionRutasService = planificacionRutasService;
+      this.rutaService = rutaService;
+      this.rutaMapper = rutaMapper;
+      this.objectMapper = objectMapper;
+      this.signatureVerifier = signatureVerifier;
+      this.planificacionRutasService = planificacionRutasService;
     }
 
     @GetMapping
@@ -49,11 +58,26 @@ public class RutaController {
 
     @PostMapping("/callback")
     @ResponseStatus(HttpStatus.OK)
-    public void recibirCallBack(@Valid @RequestBody RoutingCallbackDTO callback) {
+    public ResponseEntity<Void> recibirCallBack(@RequestBody String rawBody, @RequestHeader("X-Signature") String signature) {
         // por ahora loguear para confirmar que llega
-        System.out.println("Callback recibido: " + callback.getEventType());
-        System.out.println("Routes: " + callback.getData().getRoutes().size());
+        //System.out.println("Callback recibido: " + callback.getEventType());
+        //System.out.println("Routes: " + callback.getData().getRoutes().size());
         // TODO: procesar y persistir las rutas generadas;
+
+        if(!signatureVerifier.verify(rawBody, signature)){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        RoutingCallbackDTO callback;
+        try{
+            callback = objectMapper.readValue(rawBody, RoutingCallbackDTO.class);
+        } catch(Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+
+        rutaService.procesarCallback(callback);
+
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")

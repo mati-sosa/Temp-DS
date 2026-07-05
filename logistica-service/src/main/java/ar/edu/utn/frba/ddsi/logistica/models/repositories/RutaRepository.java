@@ -33,4 +33,10 @@ public class RutaRepository {
     public void eliminar(Long id) {
         rutas.remove(id);
     }
+
+    public Optional<Ruta> buscarPorRequestId(String requestId) {
+        return rutas.values().stream()
+                .filter(r -> requestId.equals(r.getRequestId()))
+                .findFirst();
+    }
 }
